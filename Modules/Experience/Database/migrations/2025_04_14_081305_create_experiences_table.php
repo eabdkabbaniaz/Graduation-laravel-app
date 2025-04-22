@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('before_instruction')->nullable();
             $table->string('after_instruction')->nullable();
-            $table->boolean('status')->default(1)->comment('1 is active and 0 non active');
+            $table->boolean('status')->default(value: 1)->comment('1 is active and 0 non active');
             $table->timestamps();
         });
     }

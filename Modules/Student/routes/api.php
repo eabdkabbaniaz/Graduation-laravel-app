@@ -8,6 +8,7 @@ use Modules\Student\App\Http\Controllers\StudentAdminController;
 use Modules\Student\App\Http\Controllers\StudentController;
 use Modules\Student\App\Http\Controllers\StudentImportController;
 use Modules\Student\App\Http\Controllers\StudentProfileController;
+use Modules\Student\App\Http\Controllers\TeacherController;
 
 /*
     |--------------------------------------------------------------------------
@@ -44,4 +45,13 @@ Route::group(['prefix' => 'Student'],function(){
 Route::group(['prefix' => 'Category'],function(){
     Route::get('/index', [CategoryController::class, 'index']);
     Route::get('/show/{id}', [CategoryController::class, 'show']);
+});
+
+Route::group(['prefix'=>'teacher'],function(){
+    Route::get('/index', [TeacherController::class, 'index']);
+    Route::get('/toggleActivation/{id}', [TeacherController::class, 'toggleActivation']);
+    Route::delete('/destroy/{id}', [TeacherController::class, 'destroy']);
+    Route::patch('update/{id}', [TeacherController::class, 'edit']);
+    Route::post('create', [TeacherController::class, 'create']);
+    Route::post('login', [TeacherController::class, 'login']);
 });

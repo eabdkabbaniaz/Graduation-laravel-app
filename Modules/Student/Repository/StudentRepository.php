@@ -10,7 +10,7 @@ class StudentRepository implements UserRepositoryInterface
 {
     public function index()
     {
-     return   User::role('student')->with('students.category')->get();
+     return   User::role('student')->with('students.category')->paginate(10);
     }
     public function create($message)
     {

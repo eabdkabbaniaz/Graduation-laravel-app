@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Modules\Experience\App\Http\Controllers\ExperienceController;
+use Modules\Experience\App\Http\Controllers\SessionAttendanceController;
+use Modules\Experience\App\Http\Controllers\SessionController;
 
 /*
     |--------------------------------------------------------------------------
@@ -15,8 +17,10 @@ use Modules\Experience\App\Http\Controllers\ExperienceController;
     |
 */
 
-Route::middleware(['auth:sanctum'])->prefix('v1')->name('api.')->group(function () {
-    Route::get('experience', fn (Request $request) => $request->user())->name('experience');
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::post('/attend', [SessionAttendanceController::class, 'attend']);
+
+    // Route::get('experience', fn (Request $request) => $request->user())->name('experience');
 });
 
 
@@ -28,3 +32,13 @@ Route::group(['prefix' => 'Experinence'],function(){
     Route::patch('/update/{id}', [ExperienceController::class, 'update']);
     Route::get('/changeStatus/{id}', [ExperienceController::class, 'changeStatus']);
 });
+
+
+Route::prefix('session')->group(function () {
+    Route::get('/index', [SessionController::class, 'index']);
+    Route::post('/store', [SessionController::class, 'store']);
+    Route::get('/show/{id}', [SessionController::class, 'show']);
+    Route::put('/update/{id}', [SessionController::class, 'update']);
+    Route::delete('/destroy/{id}', [SessionController::class, 'destroy']);
+});
+

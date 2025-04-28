@@ -2,6 +2,7 @@
 namespace Modules\Exam\Services;
 
 use Modules\Exam\Repository\QuestionRepository;
+use Modules\Traits\ApiResponseTrait;
 
 class QuestionService
 {
@@ -14,26 +15,59 @@ class QuestionService
 
     public function list()
     {
-        return $this->questionRepository->all();
+        try {
+        
+            $result=    $this->questionRepository->all();
+               return ApiResponseTrait::successResponse("succ",$result );
+           } catch (\Throwable $e) {
+               return ApiResponseTrait::errorResponse($e->getMessage());
+           }    
     }
 
     public function create($data)
     {
-        return $this->questionRepository->create($data);
+
+        try {
+        
+            $result=  $this->questionRepository->create($data);
+               return ApiResponseTrait::successResponse("succ",$result );
+           } catch (\Throwable $e) {
+               return ApiResponseTrait::errorResponse($e->getMessage());
+           }    
     }
 
     public function show($id)
     {
-        return $this->questionRepository->find($id);
+        try {
+        
+            $result=  $this->questionRepository->find($id);
+               return ApiResponseTrait::successResponse("succ",$result );
+           } catch (\Throwable $e) {
+               return ApiResponseTrait::errorResponse($e->getMessage());
+           }  
+
     }
 
     public function update($id, $data)
-    {
-        return $this->questionRepository->update($id, $data);
+    {      try {
+        
+        $result=  $this->questionRepository->update($id, $data);
+           return ApiResponseTrait::successResponse("succ",$result );
+       } catch (\Throwable $e) {
+           return ApiResponseTrait::errorResponse($e->getMessage());
+       }  
+  
     }
 
     public function delete($id)
     {
-        return $this->questionRepository->delete($id);
+        try {
+        
+            $result=  $this->questionRepository->delete($id);
+               return ApiResponseTrait::successResponse("succ",$result );
+           } catch (\Throwable $e) {
+               return ApiResponseTrait::errorResponse($e->getMessage());
+           }  
+      
     }
 }

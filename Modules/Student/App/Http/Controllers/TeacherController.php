@@ -9,6 +9,7 @@ use Illuminate\Http\Response;
 use Modules\Student\App\Http\Requests\CreateTeacherRequest;
 use Modules\Student\App\Http\Requests\SignInRequest;
 use Modules\Student\Services\TeacherService;
+use Modules\Traits\ApiResponseTrait;
 
 class TeacherController extends Controller
 {
@@ -17,60 +18,72 @@ class TeacherController extends Controller
         $this->service = $service;
     }
 
-    public function index()
-    {
-        return view('student::index');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(CreateTeacherRequest $request)
     {
         // return $request;
-      return  $data = $this->service->register($request->validated());
-      
+        try {
+        
+            $result= $this->service->register($request->validated());
+        
+               return ApiResponseTrait::successResponse("succ",$result );
+           } catch (\Throwable $e) {
+               return ApiResponseTrait::errorResponse($e->getMessage());
+           } 
+
     }
 
-
-
-    /**
-     * Show the specified resource.
-     */
-    public function show($id)
-    {
-        return view('student::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Request $request ,$id)
     {
-        $data=$request->all();
-        $massage['id']=$id;
-        $massage['data']=$data;
-      return  $this->service->update($massage);
+        try {
+            $data=$request->all();
+            $massage['id']=$id;
+            $massage['data']=$data;
+            $result= $this->service->update($massage);
+               return ApiResponseTrait::successResponse("succ",$result );
+           } catch (\Throwable $e) {
+               return ApiResponseTrait::errorResponse($e->getMessage());
+           } 
+ 
     }
 
     public function destroy($id)
     {
-        return  $this->service->destroy($id);
+       
+        try {
+            $result=  $this->service->destroy($id);
+               return ApiResponseTrait::successResponse("succ",$result );
+           } catch (\Throwable $e) {
+               return ApiResponseTrait::errorResponse($e->getMessage());
+           } 
 
     }
     public function toggleActivation($id)
     {
-        return  $this->service->toggleActivation($id);
+        
+        try {
+            $result=  $this->service->toggleActivation($id);
+
+               return ApiResponseTrait::successResponse("succ",$result );
+           } catch (\Throwable $e) {
+               return ApiResponseTrait::errorResponse($e->getMessage());
+           } 
+
 
     }
     
     public function login(SignInRequest $request)
     {
-        $teacher = $this->service->login($request->validated());
-        if (!$teacher) {
-            return response()->json(['message' => 'Invalid credentials'], 401);
-        }
-        return response()->json(['teacher' => $teacher]);
+        
+        try {
+            $teacher = $this->service->login($request->validated());
+            if (!$teacher) {
+                return ApiResponseTrait::errorResponse( 'Invalid credentials', 401);
+            }
+               return ApiResponseTrait::successResponse("succ",$teacher );
+           } catch (\Throwable $e) {
+               return ApiResponseTrait::errorResponse($e->getMessage());
+           } 
+     
     }
 
 }

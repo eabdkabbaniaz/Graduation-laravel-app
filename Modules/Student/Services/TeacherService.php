@@ -19,6 +19,18 @@ class TeacherService
     public function __construct(TeacherRepository $repo) {
         $this->repo=$repo;
     }
+
+
+   public  function  index()
+    {
+        try {
+            $teacher = $this->repo->index();
+            return ApiResponseTrait::successResponse("تم الاضافة بنجاح", $teacher);
+        }  catch (\Throwable $e) {
+            return ApiResponseTrait::errorResponse($e->getMessage());
+        }
+    
+    }
    public  function  generateRandomPassword($length = 10)
     {
         $upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -53,13 +65,13 @@ class TeacherService
         // event(new UserLoggedIn($user['id']));
         $massege['email'] = $data['email'];
         $massege['password'] = $data['password'];
-        // SendTeacherCredentialsEmail::dispatch($data , $password);
-        Mail::raw("your email information is: email:{{$data['email'] }}your password {{ $password }}", function ($message) use ($data) {
-            $message->from('walaaalrehawi@gmail.com', 'walaa')
-                ->to($data['email'])
-                ->subject(' Verification Code ');    
-        }); 
-        return ApiResponseTrait::successResponse("add teacher success" ,$password);
+       //  SendTeacherCredentialsEmail::dispatch($data , $password);
+        // Mail::raw("your email information is: email:{{$data['email'] }}your password {{ $password }}", function ($message) use ($data) {
+        //     $message->from('walaaalrehawi@gmail.com', 'walaa')
+        //         ->to($data['email'])
+        //         ->subject(' Verification Code ');    
+        // }); 
+        return ApiResponseTrait::successResponse("add teacher success" ,$data);
         // return $data;
     }
 
@@ -76,9 +88,9 @@ class TeacherService
     //     Auth::guard('web')->logout();
     // }
 
-    public function update( array $data)
+    public function update(  $message)
     {
-        $returnData= $this->repo->update( $data);
+        $returnData= $this->repo->update($message);
         return ApiResponseTrait::successResponse("edit teacher success" ,$returnData);
     }
 

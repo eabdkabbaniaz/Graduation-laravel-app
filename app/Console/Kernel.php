@@ -12,7 +12,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('exams:deactivate-expired')->everyMinute();
+        // $schedule->command('exams:destudentsactivate-expired')->everyMinute();
+        $schedule->command('students:calculate-scores')->everyMinute();
     }
 
     /**

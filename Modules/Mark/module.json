@@ -1,0 +1,11 @@
+{
+    "name": "Mark",
+    "alias": "mark",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Mark\\App\\Providers\\MarkServiceProvider"
+    ],
+    "files": []
+}

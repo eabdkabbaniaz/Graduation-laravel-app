@@ -2,5 +2,6 @@
     "Student": true,
     "Experince": true,
     "Experience": true,
-    "Exam": true
+    "Exam": true,
+    "Mark": true
 }

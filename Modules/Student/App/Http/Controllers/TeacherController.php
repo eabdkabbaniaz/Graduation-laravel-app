@@ -17,7 +17,11 @@ class TeacherController extends Controller
     public function __construct( TeacherService $service) {
         $this->service = $service;
     }
+    
 
+    public function index(){
+        return $this->service->index(); 
+    }
     public function create(CreateTeacherRequest $request)
     {
         // return $request;
@@ -35,10 +39,9 @@ class TeacherController extends Controller
     public function edit(Request $request ,$id)
     {
         try {
-            $data=$request->all();
-            $massage['id']=$id;
-            $massage['data']=$data;
-            $result= $this->service->update($massage);
+            $message['id'] = $id;
+            $message['data'] = $request->input();
+            $result= $this->service->update($message);
                return ApiResponseTrait::successResponse("succ",$result );
            } catch (\Throwable $e) {
                return ApiResponseTrait::errorResponse($e->getMessage());

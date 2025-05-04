@@ -8,13 +8,21 @@ use Modules\Student\App\Models\Teacher;
 class TeacherRepository implements UserRepositoryInterface
 {
 
-    public function index() {}
-    public function create($message) {
-        
-      $user=  User::create($message);
-        Teacher::create([
-            'user_id'=>$user->id,
+    public function index()
+    {
+        //  User::all();
+        return   User::role('teacher')->with('teacher')->get();
+    }
+    public function create($message)
+    {
+        $user =  User::create($message);
+        $teacher = Teacher::create([
+            'user_id' => $user->id,
+            'is_active' => 1
+
         ]);
+        $user->assignRole('teacher');
+        $user['is_active'] = $teacher->is_active;
         return $user;
     }
     public function show($message) {}
@@ -28,13 +36,13 @@ class TeacherRepository implements UserRepositoryInterface
     {
         return    User::destroy($message);
     }
-    public function toggleActivation( $teacher)
+    public function toggleActivation($teacher)
     {
-        $user=Teacher::where('user_id',$teacher)->first();
-        if($user){
-$user['is_active'] = !$user['is_active'] ;
-$user->save();
+        $user = Teacher::where('user_id', $teacher)->first();
+        if ($user) {
+            $user['is_active'] = !$user['is_active'];
+            $user->save();
         }
         return $user;
-}
+    }
 }

@@ -10,7 +10,7 @@ class StudentRepository implements UserRepositoryInterface
 {
     public function index()
     {
-     return   User::role('student')->with('students.category')->paginate(10);
+        return   User::role('student')->with('students.category')->paginate(10);
     }
     public function create($message)
     {
@@ -19,11 +19,12 @@ class StudentRepository implements UserRepositoryInterface
             'email' => $message['university_number'],
             'password' => bcrypt(11111111),
         ]);
-        Student::create([
+       $student= Student::create([
             'category_id' => $message['category_id'],
             'user_id' => $user->id,
         ]);
         $user->assignRole('student');
+        $user['category_name']='فئة'.$student->category_id;
         return $user;
     }
     public function show($message)

@@ -19,7 +19,8 @@ class StudentAdminService
     public function index()
     {
         try {
-            $student =  $this->user_repository_student->index();
+            $message['university_id'] = auth('university')->user()->id;
+            $student =  $this->user_repository_student->index($message);
             return ApiResponseTrait::successResponse("", $student);
         } catch (\Throwable $e) {
             return ApiResponseTrait::errorResponse($e->getMessage());
@@ -28,6 +29,7 @@ class StudentAdminService
     public function create($message)
     {
         try {
+            $message['university_id'] = auth('university')->user()->id;
             $student =  $this->user_repository_student->create($message);
             return ApiResponseTrait::successResponse("تم تسجيل الطالب بنجاح", $student);
         } catch (\Throwable $e) {

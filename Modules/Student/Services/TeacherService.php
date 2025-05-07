@@ -24,7 +24,8 @@ class TeacherService
    public  function  index()
     {
         try {
-            $teacher = $this->repo->index();
+            $message['university_id'] = auth('university')->user()->id;
+            $teacher = $this->repo->index($message);
             return ApiResponseTrait::successResponse("تم الاضافة بنجاح", $teacher);
         }  catch (\Throwable $e) {
             return ApiResponseTrait::errorResponse($e->getMessage());
@@ -53,9 +54,10 @@ class TeacherService
     
     public function register(array $data)
     {
+        
         $password=$this->generateRandomPassword(10);
         $data['password']= Hash::make( $password);
-
+        $data['university_id'] = auth('university')->user()->id;
         $data = $this->repo->create($data);
         // $accessToken = $user->createToken('access_token', [TokenAbility::ACCESS_API->value], Carbon::now()->addMinutes(config('sanctum.ac_expiration')));
         // $refreshToken = $user->createToken('refresh_token', [TokenAbility::ISSUE_ACCESS_TOKEN->value],
@@ -71,7 +73,9 @@ class TeacherService
         //         ->to($data['email'])
         //         ->subject(' Verification Code ');    
         // }); 
-        return ApiResponseTrait::successResponse("add teacher success" ,$data);
+      
+   
+        return ApiResponseTrait::successResponse("add teacher success".'password'.$password ,$data);
         // return $data;
     }
 

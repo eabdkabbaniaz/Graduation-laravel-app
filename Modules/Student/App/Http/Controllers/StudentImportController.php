@@ -20,7 +20,13 @@ class StudentImportController extends Controller
 
     public function import(ImportStudentRequest $request)
     {
-        $category = $this->category_service->createBatchCategories($request->category_number);
+        $request['university_id']=  auth('university')->user()->id;
+        if ($request['archive'] == 'yes') {
+            $this->student_service->handle($request['university_id']);
+        }
+       
+      
+        $category = $this->category_service->createBatchCategories($request);
         return $this->student_service->importAndDistributeStudents($request, $category);
     }
 }

@@ -21,12 +21,14 @@ class CategoryService
     {
         return $this->repo->find($id);
     }
-    public  function createBatchCategories(int $count)
+    public  function createBatchCategories($message)
     {
-
+        $count =   $message['category_number'];
+       
         $ids = [];
         for ($i = 1; $i <= $count; $i++) {
             $data['name'] = 'فئة ' . $i;
+            $data['university_id']=$message['university_id'];
             $category = $this->repo->create($data);
             $ids[] = $category->id;
         }

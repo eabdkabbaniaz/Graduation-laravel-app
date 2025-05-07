@@ -34,7 +34,7 @@ Route::group(['prefix' => 'Experinence'],function(){
 });
 
 
-Route::prefix('session')->group(function () {
+Route::group(['prefix'=>'session','middleware'=>['auth:university']],function () {
     Route::get('/index', [SessionController::class, 'index']);
     Route::post('/store', [SessionController::class, 'store']);
     Route::get('/show/{id}', [SessionController::class, 'show']);

@@ -20,122 +20,119 @@ use Modules\Student\App\Models\Student;
 class TeacherController extends Controller
 {
     public TeacherService $service;
-    public function __construct( TeacherService $service) {
+    public function __construct(TeacherService $service)
+    {
         $this->service = $service;
     }
-    
 
-    public function index(){
-        return $this->service->index(); 
+
+    public function index()
+    {
+        return $this->service->index();
     }
     public function create(CreateTeacherRequest $request)
     {
-        // // return $request;
-        // try {
-        
-        //     $result= $this->service->register($request->validated());
-        
-        //        return ApiResponseTrait::successResponse("succ",$result );
-        //    } catch (\Throwable $e) {
-        //        return ApiResponseTrait::errorResponse($e->getMessage());
-        //    } 
-        $examSetting = Setting::where('name', 'exam')->first();
-        $assessmentSetting = Setting::where('name', 'assessment')->first();
-        $attendanceSetting = Setting::where('name', 'attendance')->first();
+        // return $request;
+        try {
 
-        $examCount = Exam::count();
-        $sessionCount = Session::count();
+            $result= $this->service->register($request->validated());
 
-        $students = Student::all();
+               return ApiResponseTrait::successResponse("succ",$result );
+           } catch (\Throwable $e) {
+               return ApiResponseTrait::errorResponse($e->getMessage());
+           } 
 
-        foreach ($students as $student) {
-            $userId = $student->user_id;
+        // $examSetting = Setting::where('name', 'exam')->first();
+        // $assessmentSetting = Setting::where('name', 'assessment')->first();
+        // $attendanceSetting = Setting::where('name', 'attendance')->first();
 
-       
-            $examGrades = ExamUser::where('user_id', $userId)->pluck('grade');
-            $examRawScore = $examSetting->calculation_method === 'sum'
-                ? $examGrades->sum()
-                : ($examGrades->count() > 0 ? $examGrades->sum() / $examGrades->count() : 0);
-            $weightedExamScore = $examRawScore * ($examSetting->final_mark / 100);
+        // $examCount = Exam::count();
+        // $sessionCount = Session::count();
 
-     
-            $sessionMarks = UserSession::where('user_id', $userId)->pluck('mark');
-            $assessmentRawScore = $assessmentSetting->calculation_method === 'sum'
-                ? $sessionMarks->sum()
-                : ($sessionCount > 0 ? $sessionMarks->sum() / $sessionCount : 0);
-            $weightedAssessmentScore = $assessmentRawScore * ($assessmentSetting->final_mark / 100);
+        // $students = Student::all();
 
-            
-            $sessionsAttended = UserSession::where('user_id', $userId)->count();
-            $attendancePercent = $sessionCount > 0 ? ($sessionsAttended / $sessionCount) * 100 : 0;
-            $weightedAttendance = $attendancePercent * ($attendanceSetting->final_mark / 100);
+        // foreach ($students as $student) {
+        //     $userId = $student->user_id;
 
-          
-            $finalGrade = $weightedExamScore + $weightedAssessmentScore + $weightedAttendance;
 
-            $student->update([
-                'exam_score' => $examRawScore,
-                'assessment_score' => $assessmentRawScore,
-                'attendance_average' => $attendancePercent,
-                'final_grade' => $finalGrade,
-            ]);
-        }
-return  $students;
-        // $this->info('✔️ تم حساب وتحديث علامات جميع الطلاب.');
-    
+        //     $examGrades = ExamUser::where('user_id', $userId)->pluck('grade');
+        //     $examRawScore = $examSetting->calculation_method === 'sum'
+        //         ? $examGrades->sum()
+        //         : ($examGrades->count() > 0 ? $examGrades->sum() / $examGrades->count() : 0);
+        //     $weightedExamScore = $examRawScore * ($examSetting->final_mark / 100);
+
+
+        //     $sessionMarks = UserSession::where('user_id', $userId)->pluck('mark');
+        //     $assessmentRawScore = $assessmentSetting->calculation_method === 'sum'
+        //         ? $sessionMarks->sum()
+        //         : ($sessionCount > 0 ? $sessionMarks->sum() / $sessionCount : 0);
+        //     $weightedAssessmentScore = $assessmentRawScore * ($assessmentSetting->final_mark / 100);
+
+
+        //     $sessionsAttended = UserSession::where('user_id', $userId)->count();
+        //     $attendancePercent = $sessionCount > 0 ? ($sessionsAttended / $sessionCount) * 100 : 0;
+        //     $weightedAttendance = $attendancePercent * ($attendanceSetting->final_mark / 100);
+
+
+        //     $finalGrade = $weightedExamScore + $weightedAssessmentScore + $weightedAttendance;
+
+        //     $student->update([
+        //         'exam_score' => $examRawScore,
+        //         'assessment_score' => $assessmentRawScore,
+        //         'attendance_average' => $attendancePercent,
+        //         'final_grade' => $finalGrade,
+        //     ]);
+        // }
+        // return  $students;
+        // // $this->info('✔️ تم حساب وتحديث علامات جميع الطلاب.');
+
     }
 
-    public function edit(Request $request ,$id)
+    public function edit(Request $request, $id)
     {
         try {
             $message['id'] = $id;
             $message['data'] = $request->input();
-            $result= $this->service->update($message);
-               return ApiResponseTrait::successResponse("succ",$result );
-           } catch (\Throwable $e) {
-               return ApiResponseTrait::errorResponse($e->getMessage());
-           } 
- 
+            $result = $this->service->update($message);
+            return ApiResponseTrait::successResponse("succ", $result);
+        } catch (\Throwable $e) {
+            return ApiResponseTrait::errorResponse($e->getMessage());
+        }
     }
 
     public function destroy($id)
     {
-       
-        try {
-            $result=  $this->service->destroy($id);
-               return ApiResponseTrait::successResponse("succ",$result );
-           } catch (\Throwable $e) {
-               return ApiResponseTrait::errorResponse($e->getMessage());
-           } 
 
+        try {
+            $result =  $this->service->destroy($id);
+            return ApiResponseTrait::successResponse("succ", $result);
+        } catch (\Throwable $e) {
+            return ApiResponseTrait::errorResponse($e->getMessage());
+        }
     }
     public function toggleActivation($id)
     {
-        
+
         try {
-            $result=  $this->service->toggleActivation($id);
+            $result =  $this->service->toggleActivation($id);
 
-               return ApiResponseTrait::successResponse("succ",$result );
-           } catch (\Throwable $e) {
-               return ApiResponseTrait::errorResponse($e->getMessage());
-           } 
-
-
+            return ApiResponseTrait::successResponse("succ", $result);
+        } catch (\Throwable $e) {
+            return ApiResponseTrait::errorResponse($e->getMessage());
+        }
     }
-    
-    public function login(  Request $request)
+
+    public function login(Request $request)
     {
-        
+
         try {
             $teacher = $this->service->login($request->all());
             if (!$teacher) {
-                return ApiResponseTrait::errorResponse( 'Invalid credentials', 401);
+                return ApiResponseTrait::errorResponse('Invalid credentials', 401);
             }
-               return ApiResponseTrait::successResponse("succ",$teacher );
-           } catch (\Throwable $e) {
-               return ApiResponseTrait::errorResponse($e->getMessage());
-           } 
-     
+            return ApiResponseTrait::successResponse("succ", $teacher);
+        } catch (\Throwable $e) {
+            return ApiResponseTrait::errorResponse($e->getMessage());
+        }
     }
-
 }

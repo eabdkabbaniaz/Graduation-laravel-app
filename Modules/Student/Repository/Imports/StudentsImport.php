@@ -17,10 +17,14 @@ class StudentsImport implements ToModel, WithHeadingRow, WithStartRow
     private $countCategory;
     private $firstCategory;
     private $distributor;
+    private $university_id;
 
-    public function __construct(CategoryDistributorInterface $distributor)
+    public function __construct(CategoryDistributorInterface $distributor,$university_id)
     {
         $this->distributor = $distributor;
+        $this->university_id = $university_id;
+        log("$this->university_id", $this->university_id);
+
     }
     public function startRow(): int
     {
@@ -40,6 +44,7 @@ class StudentsImport implements ToModel, WithHeadingRow, WithStartRow
             'email' => $row['university_number'],
             'password' => bcrypt(11111111),
             'category_id' => $categoryId,
+            'university_id'=>$this->university_id 
         ]);
         Student::create([
             'category_id' => $categoryId,

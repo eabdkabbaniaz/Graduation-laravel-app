@@ -12,9 +12,7 @@ use Exception;
 class SessionService
 {
 
-    public function __construct(protected SessionRepository $repo)
-    {
-    }
+    public function __construct(protected SessionRepository $repo) {}
 
 
     public function generateRandom($length = 10)
@@ -40,8 +38,11 @@ class SessionService
     public function store(array $data)
     {
         try {
+
+
             $data['code'] = $this->generateRandom(5);
-            $session = $this->repo->create($data);
+            $data['university_id'] = auth('university')->user()->id;
+          return   $session = $this->repo->create($data);
             return ApiResponseTrait::successResponse("", new SessionResource($session));
         } catch (\Throwable $e) {
             return ApiResponseTrait::errorResponse($e->getMessage());
@@ -68,7 +69,6 @@ class SessionService
         } catch (\Throwable $e) {
             return ApiResponseTrait::errorResponse($e->getMessage());
         }
-
     }
 
     public function show($id)
@@ -80,18 +80,17 @@ class SessionService
         } catch (\Throwable $e) {
             return ApiResponseTrait::errorResponse($e->getMessage());
         }
-
-
     }
 
     public function index()
     {
         try {
-
-            $session = $this->repo->all();
-            return ApiResponseTrait::successResponse("", SessionResource::collection($session));
+            $message['university_id'] = auth('university')->user()->id;
+            $session = $this->repo->all($message);
+            return ApiResponseTrait::successResponse("",$session);
+           // return ApiResponseTrait::successResponse("", SessionResource::collection($session));
         } catch (\Throwable $e) {
             return ApiResponseTrait::errorResponse($e->getMessage());
-        }   
+        }
     }
 }

@@ -16,6 +16,7 @@ class StoreSessionRequest extends FormRequest
             // 'code' => 'required|string|unique:sessions,code',
             'experience_id' => 'required|exists:experiences,id',
             'teacher_id' => 'required|exists:users,id',
+            'sison_id' => 'required|exists:sisons,id',
             'drug_ids' => 'required|array',
             'drug_ids.*' => 'exists:drugs,id',
         ];

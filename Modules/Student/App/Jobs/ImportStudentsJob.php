@@ -20,13 +20,15 @@ class ImportStudentsJob implements ShouldQueue
     protected $category;
     protected $distributionMethod;
     protected $category_number;
+    protected $university_id;
 
-    public function __construct($filePath, $category, $distributionMethod, $category_number)
+    public function __construct($filePath, $category, $distributionMethod, $category_number,$university_id)
     {
         $this->filePath = $filePath;
         $this->category = $category;
         $this->distributionMethod = $distributionMethod;
         $this->category_number = $category_number;
+        $this->university_id = $university_id;
     }
 
     public function handle()
@@ -48,7 +50,7 @@ class ImportStudentsJob implements ShouldQueue
             $this->category
         );
 
-        Excel::import(new StudentsImport($distributor), storage_path('app/' . $this->filePath));
+        Excel::import(new StudentsImport($distributor,$this->university_id), storage_path('app/' . $this->filePath));
 
         // يمكنك هنا ترسل إشعار أو تحدث حالة الاستيراد في DB إذا حابب
     }

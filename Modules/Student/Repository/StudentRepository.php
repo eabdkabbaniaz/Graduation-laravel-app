@@ -8,16 +8,18 @@ use Modules\Student\Repository\UserRepositoryInterface;
 
 class StudentRepository implements UserRepositoryInterface
 {
-    public function index()
+    public function index($message)
     {
-        return   User::role('student')->with('students.category')->paginate(10);
+        return   User::role('student')->with('students.category')->where('university_id',$message['university_id'])->paginate(10);
     }
     public function create($message)
     {
+        
         $user =  User::create([
             'name' => $message['name'],
             'email' => $message['university_number'],
             'password' => bcrypt(11111111),
+            'university_id'=>$message['university_id']
         ]);
        $student= Student::create([
             'category_id' => $message['category_id'],

@@ -8,10 +8,10 @@ use Modules\Student\App\Models\Teacher;
 class TeacherRepository implements UserRepositoryInterface
 {
 
-    public function index()
+    public function index($message)
     {
         //  User::all();
-        return   User::role('teacher')->with('teacher')->get();
+        return   User::role('teacher')->with('teacher')->where('university_id',$message['university_id'])->get();
     }
     public function create($message)
     {

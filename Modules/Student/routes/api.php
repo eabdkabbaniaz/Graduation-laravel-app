@@ -32,7 +32,7 @@ Route::post('ChangePassword', [AuthController::class, 'ChangePassword'])->middle
 Route::post('/login', [AuthController::class, 'login']);
 });
 
-Route::group(['prefix'=>'studentAdmin'],function(){
+Route::group(['prefix'=>'studentAdmin','middleware'=>['auth:university']],function(){
     Route::get('/index', [StudentAdminController::class, 'index']);
     Route::delete('/destroy/{id}', [StudentAdminController::class, 'destroy']);
     Route::patch('update/{id}', [StudentAdminController::class, 'update']);
@@ -47,7 +47,7 @@ Route::group(['prefix' => 'Category'],function(){
     Route::get('/show/{id}', [CategoryController::class, 'show']);
 });
 
-Route::group(['prefix'=>'teacher'],function(){
+Route::group(['prefix'=>'teacher','middleware'=>['auth:university']],function(){
     Route::get('/index', [TeacherController::class, 'index']);
     Route::get('/toggleActivation/{id}', [TeacherController::class, 'toggleActivation']);
     Route::delete('/destroy/{id}', [TeacherController::class, 'destroy']);

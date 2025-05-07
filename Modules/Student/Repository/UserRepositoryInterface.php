@@ -4,7 +4,7 @@ namespace Modules\Student\Repository;
 
 interface UserRepositoryInterface
 {
-    public function index();
+    public function index($message);
     public function create($message);
     public function show($message);
     public function update($message);

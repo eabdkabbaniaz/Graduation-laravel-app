@@ -40,9 +40,9 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'student_api' => [
-            'driver' => 'session',
-            'provider' => 'student',
+        'university' => [
+            'driver' => 'sanctum',
+            'provider' => 'universities',
         ],
     ],
 
@@ -68,9 +68,9 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-        'student' => [
+        'universities' => [
             'driver' => 'eloquent',
-            'model' => Modules\Student\App\Models\Student::class,
+            'model' => Modules\University\App\Models\University::class,
         ],
         // 'users' => [
         //     'driver' => 'database',

@@ -16,7 +16,7 @@ class Session extends Model
      */
  
 
-    protected $fillable = ['name', 'code', 'experience_id', 'teacher_id'];
+    protected $fillable = ['name', 'code', 'experience_id', 'teacher_id','uniexpsison_id'];
 
     public function experience()
     {

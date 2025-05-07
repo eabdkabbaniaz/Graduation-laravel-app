@@ -3,6 +3,8 @@
 namespace Modules\Experience\Services;
 
 use App\Models\helper;
+use Modules\Experience\App\Models\Experience;
+use Modules\Experience\App\Models\ExperienceSemester;
 use Modules\Experience\App\Models\Session;
 use Modules\Experience\App\resources\SessionResource;
 use Modules\Experience\Repository\SessionRepository;
@@ -37,10 +39,18 @@ class SessionService
         return str_shuffle($password);
     }
 
-    public function store(array $data)
+    public function store(array $message)
     {
         try {
+            $data['teacher_id'] =   auth()->user()->id; 
             $data['code'] = $this->generateRandom(5);
+            $data['experience_id']= ExperienceSemester::where([
+                ['experience_id',$message['experience_id']],
+                ['semester_id',$message['semester_id']]
+            ]);
+            $data['drug_ids']=$message['drug_ids'];
+            $data['name']=$message['name'];
+
             $session = $this->repo->create($data);
             return ApiResponseTrait::successResponse("", new SessionResource($session));
         } catch (\Throwable $e) {

@@ -21,7 +21,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/attend', [SessionAttendanceController::class, 'attend']);
 
     // Route::get('experience', fn (Request $request) => $request->user())->name('experience');
-});
 
 
 Route::group(['prefix' => 'Experinence'],function(){
@@ -42,3 +41,4 @@ Route::prefix('session')->group(function () {
     Route::delete('/destroy/{id}', [SessionController::class, 'destroy']);
 });
 
+});

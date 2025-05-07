@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('experience_drugs', function (Blueprint $table) {
             $table->id();
             $table->foreignId( 'drug_id')->constrained('drugs')->onDelete('cascade');
-            $table->foreignId( 'experience_id')->constrained('experiences')->onDelete('cascade');
+            $table->foreignId(  'experience_id')->constrained('experiences')->onDelete('cascade');
             $table->boolean('effect');
 
             $table->timestamps();

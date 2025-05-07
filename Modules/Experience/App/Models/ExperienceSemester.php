@@ -13,5 +13,9 @@ class ExperienceSemester extends Model
     protected $guarded=[];    
 
     protected $table = 'experineces_semesters';
-    
+
+    public function Experience()
+    {
+        return $this->belongsTo(Experience::class);
+    }
 }

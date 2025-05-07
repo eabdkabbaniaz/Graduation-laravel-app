@@ -3,6 +3,8 @@
 namespace Modules\Experience\Repository;
 
 use Modules\Experience\App\Models\Experience;
+use Modules\Experience\App\Models\ExperienceSemester;
+use Modules\Experience\App\Models\Semester;
 use Modules\Experience\App\Models\Session;
 
 class SessionRepository
@@ -42,9 +44,17 @@ class SessionRepository
             return Session::findOrFail($id);
         }
     
-        public function all()
+        public function all($data)
         {
-            return Session::with('drugs')->get();
+            return Session::with('drugs')->where('experience_id',$data)->get();
+        }
+        public function AllExperience($data)
+        {
+            return ExperienceSemester::with('Experience')->where('experience_id',$data)->get();
+        }
+        public function AllSemester()
+        {
+            return Semester::get();
         }
     }
     

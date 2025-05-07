@@ -20,9 +20,19 @@ class SessionController extends Controller
             
         }
     
-        public function index()
+        public function index($data)
         {
-            return$this->service->index();
+            return$this->service->index($data);
+        }
+    
+        public function AllExperience($data)
+        {
+            return$this->service->AllExperience($data);
+        }
+    
+        public function AllSemester()
+        {
+            return$this->service->AllSemester();
         }
     
         public function store(StoreSessionRequest $request)

@@ -34,7 +34,9 @@ Route::group(['prefix' => 'Experinence'],function(){
 
 
 Route::prefix('session')->group(function () {
-    Route::get('/index', [SessionController::class, 'index']);
+    Route::get('/index/{data}', [SessionController::class, 'index']);
+    Route::get('/AllExperience/{data}', [SessionController::class, 'AllExperience']);
+    Route::get('/AllSemester', [SessionController::class, 'AllSemester']);
     Route::post('/store', [SessionController::class, 'store']);
     Route::get('/show/{id}', [SessionController::class, 'show']);
     Route::put('/update/{id}', [SessionController::class, 'update']);

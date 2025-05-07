@@ -47,7 +47,7 @@ class SessionService
             $data['experience_id']= ExperienceSemester::where([
                 ['experience_id',$message['experience_id']],
                 ['semester_id',$message['semester_id']]
-            ]);
+            ])->first()->id;
             $data['drug_ids']=$message['drug_ids'];
             $data['name']=$message['name'];
 
@@ -94,12 +94,32 @@ class SessionService
 
     }
 
-    public function index()
+    public function index($data)
     {
         try {
 
-            $session = $this->repo->all();
+            $session = $this->repo->all($data);
             return ApiResponseTrait::successResponse("", SessionResource::collection($session));
+        } catch (\Throwable $e) {
+            return ApiResponseTrait::errorResponse($e->getMessage());
+        }   
+    }
+    public function AllExperience($data)
+    {
+        try {
+
+            $session = $this->repo->AllExperience($data);
+            return ApiResponseTrait::successResponse("", $session);
+        } catch (\Throwable $e) {
+            return ApiResponseTrait::errorResponse($e->getMessage());
+        }   
+    }
+    public function AllSemester()
+    {
+        try {
+
+            $session = $this->repo->AllSemester();
+            return ApiResponseTrait::successResponse("", $session);
         } catch (\Throwable $e) {
             return ApiResponseTrait::errorResponse($e->getMessage());
         }   

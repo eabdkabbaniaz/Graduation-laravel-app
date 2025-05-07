@@ -44,11 +44,12 @@ class SessionService
         try {
             $data['teacher_id'] =   auth()->user()->id; 
             $data['code'] = $this->generateRandom(5);
-            $data['experience_id']= ExperienceSemester::where([
-                ['experience_id',$message['experience_id']],
-                ['semester_id',$message['semester_id']]
-            ])->first()->id;
+            // $data['experience_id']= ExperienceSemester::where([
+            //     ['experience_id',$message['experience_id']],
+            //     ['semester_id',$message['semester_id']]
+            // ])->first()->id;
             $data['drug_ids']=$message['drug_ids'];
+            $data['experience_id']=$message['experience_id'];
             $data['name']=$message['name'];
 
             $session = $this->repo->create($data);

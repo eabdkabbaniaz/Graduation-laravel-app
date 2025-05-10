@@ -1,5 +1,6 @@
 <?php
 namespace  Modules\Exam\app\Http\Controllers;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 // use Modules\Exam\Http\Requests\SubjectRequest;
 use Modules\Exam\App\Http\Requests\SubjectRequest;
@@ -30,9 +31,9 @@ class SubjectController extends Controller
         return response()->json($this->subjectService->getById($id));
     }
 
-    public function update(SubjectRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $subject = $this->subjectService->update($id, $request->validated());
+        $subject = $this->subjectService->update($id, $request->all());
         return response()->json($subject);
     }
 

@@ -17,7 +17,7 @@ class SubjectService
         try {
         
             $result=  $this->subjectRepository->all();
-               return ApiResponseTrait::successResponse("succ",$result );
+               return ApiResponseTrait::successResponse("succ",$result )->original;
            } catch (\Throwable $e) {
                return ApiResponseTrait::errorResponse($e->getMessage());
            }  
@@ -30,7 +30,7 @@ class SubjectService
         
             $result=   $this->subjectRepository->find($id);
         
-               return ApiResponseTrait::successResponse("succ",$result );
+               return ApiResponseTrait::successResponse("succ",$result )->original;
            } catch (\Throwable $e) {
                return ApiResponseTrait::errorResponse($e->getMessage());
            } 
@@ -43,7 +43,7 @@ class SubjectService
         
             $result=  $this->subjectRepository->create($data);
         
-               return ApiResponseTrait::successResponse("succ",$result );
+               return ApiResponseTrait::successResponse("succ",$result )->original;
            } catch (\Throwable $e) {
                return ApiResponseTrait::errorResponse($e->getMessage());
            } 
@@ -55,7 +55,7 @@ class SubjectService
         
             $result=   $this->subjectRepository->update($id, $data);
         
-               return ApiResponseTrait::successResponse("succ",$result );
+               return ApiResponseTrait::successResponse("succ",$result )->original;
            } catch (\Throwable $e) {
                return ApiResponseTrait::errorResponse($e->getMessage());
            } 
@@ -67,7 +67,7 @@ class SubjectService
         
             $result=  $this->subjectRepository->delete($id);
         
-               return ApiResponseTrait::successResponse("succ",$result );
+               return ApiResponseTrait::successResponse("succ",$result )->original;
            } catch (\Throwable $e) {
                return ApiResponseTrait::errorResponse($e->getMessage());
            } 

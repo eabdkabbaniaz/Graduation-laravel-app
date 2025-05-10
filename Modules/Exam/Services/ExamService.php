@@ -18,7 +18,7 @@ class ExamService
         try {
 
             $data= $this->examRepo->all();
-               return ApiResponseTrait::successResponse("succ",   $data);
+               return ApiResponseTrait::successResponse("succ",   $data)->original;
            } catch (\Throwable $e) {
                return ApiResponseTrait::errorResponse($e->getMessage());
            }
@@ -31,7 +31,7 @@ class ExamService
 
             $data=$this->examRepo->find($id);
         
-               return ApiResponseTrait::successResponse("succ",   $data);
+               return ApiResponseTrait::successResponse("succ",   $data)->original;
            } catch (\Throwable $e) {
                return ApiResponseTrait::errorResponse($e->getMessage());
            }   
@@ -51,7 +51,7 @@ class ExamService
             $exam['data']['End_date']=$data['End_date'];
             $exam['subject_id']=$data['subject_id'];
             $result= $this->examRepo->create($exam);
-               return ApiResponseTrait::successResponse("succ",   $result);
+               return ApiResponseTrait::successResponse("succ",   $result)->original;
            } catch (\Throwable $e) {
                return ApiResponseTrait::errorResponse($e->getMessage());
            }   
@@ -64,7 +64,7 @@ class ExamService
         
         
         $result= $this->examRepo->update($id, $data);
-           return ApiResponseTrait::successResponse("succ",   $result);
+           return ApiResponseTrait::successResponse("succ",   $result)->original;
        } catch (\Throwable $e) {
            return ApiResponseTrait::errorResponse($e->getMessage());
        }   
@@ -76,7 +76,7 @@ class ExamService
         try {
         
             $result=  $this->examRepo->delete($id);
-               return ApiResponseTrait::successResponse("succ"," "  );
+               return ApiResponseTrait::successResponse("succ"," "  )->original;
            } catch (\Throwable $e) {
                return ApiResponseTrait::errorResponse($e->getMessage());
            }   
@@ -99,7 +99,7 @@ class ExamService
                 $users->save();
             
        
-               return ApiResponseTrait::successResponse("succ", $users  );
+               return ApiResponseTrait::successResponse("succ", $users  )->original;
            } catch (\Throwable $e) {
                return ApiResponseTrait::errorResponse($e->getMessage());
            }   

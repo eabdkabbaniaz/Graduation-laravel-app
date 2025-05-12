@@ -21,9 +21,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 
 
-
+});
 Route::prefix('questions')->group(function () {
-    Route::get('/index', [SubjectController::class, 'index']);
+    Route::get('/index', [QuestionController::class, 'index']);
     Route::post('/store', [QuestionController::class, 'store']);
     Route::get('/show/{id}', [QuestionController::class, 'show']);
     Route::put('/update/{id}', [QuestionController::class, 'update']);
@@ -47,4 +47,4 @@ Route::prefix('exams')->group(function () {
 });
 
 
-});
+// });

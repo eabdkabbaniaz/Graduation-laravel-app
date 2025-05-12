@@ -8,7 +8,7 @@ class QuestionRepository implements QuestionRepositoryInterface
 {
     public function all()
     {
-        return Question::with('answers')->get();
+        return Question::with('answers' , 'subject')->get();
     }
 
     public function find($id)

@@ -18,6 +18,8 @@ class UpdateSessionRequest extends FormRequest
             'teacher_id' => 'sometimes|exists:users,id',
             'drug_ids' => 'sometimes|array',
             'drug_ids.*' => 'exists:drugs,id',
+            'status'=>'boolean',
+
         ];
     }
 

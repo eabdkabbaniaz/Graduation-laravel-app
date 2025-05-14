@@ -21,7 +21,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 
 
-});
 Route::prefix('questions')->group(function () {
     Route::get('/index', [QuestionController::class, 'index']);
     Route::post('/store', [QuestionController::class, 'store']);
@@ -47,4 +46,4 @@ Route::prefix('exams')->group(function () {
 });
 
 
-// });
+});

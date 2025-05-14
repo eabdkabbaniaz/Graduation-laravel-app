@@ -49,6 +49,7 @@ class ExamService
             $exam['data']['Final_grade']=$data['Final_grade'];
             $exam['data']['Start_date']=$data['Start_date'];
             $exam['data']['End_date']=$data['End_date'];
+            $exam['data']['time']=$data['time'];
             $exam['subject_id']=$data['subject_id'];
             $result= $this->examRepo->create($exam);
                return ApiResponseTrait::successResponse("succ",   $result)->original;
@@ -61,9 +62,15 @@ class ExamService
 
     public function update($id, array $data)
     {  try {
-        
-        
-        $result= $this->examRepo->update($id, $data);
+            $exam['data']['teacher_id']=$data['teacher_id'];
+            $exam['data']['name']=$data['name'];
+            $exam['data']['number_of_questions']=$data['number_of_questions'];
+            $exam['data']['Final_grade']=$data['Final_grade'];
+            $exam['data']['Start_date']=$data['Start_date'];
+            $exam['data']['End_date']=$data['End_date'];
+            $exam['data']['time']=$data['time'];
+            $exam['subject_id']=$data['subject_id'];
+        $result= $this->examRepo->update($id, $exam);
            return ApiResponseTrait::successResponse("succ",   $result)->original;
        } catch (\Throwable $e) {
            return ApiResponseTrait::errorResponse($e->getMessage());

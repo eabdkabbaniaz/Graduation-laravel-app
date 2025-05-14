@@ -18,4 +18,9 @@ class ExperienceSemester extends Model
     {
         return $this->belongsTo(Experience::class);
     }
+
+    public function sessions()
+    {
+        return $this->hasMany(Session::class ,'experience_id');
+    }
 }

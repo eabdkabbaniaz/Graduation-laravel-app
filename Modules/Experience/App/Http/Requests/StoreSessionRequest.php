@@ -18,6 +18,7 @@ class StoreSessionRequest extends FormRequest
             // 'semester_id' => 'required|exists:semesters,id',
             // 'teacher_id' => 'required|exists:users,id',
             'drug_ids' => 'required|array',
+            'status'=>'boolean',
             'drug_ids.*' => 'exists:drugs,id',
         ];
     }

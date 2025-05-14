@@ -12,6 +12,7 @@ class SessionRepository
 
         public function create(array $data)
         {
+            // return $data;
             $session = Session::create($data);
             $session->drugs()->sync($data['drug_ids']);
             return $session;
@@ -50,7 +51,7 @@ class SessionRepository
         }
         public function AllExperience($data)
         {
-            return ExperienceSemester::with('Experience')->where('experience_id',$data)->get();
+            return ExperienceSemester::with('Experience')->where('semester_id',$data)->get();
         }
         public function AllSemester()
         {

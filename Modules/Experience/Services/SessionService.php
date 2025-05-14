@@ -51,7 +51,7 @@ class SessionService
             $data['drug_ids']=$message['drug_ids'];
             $data['experience_id']=$message['experience_id'];
             $data['name']=$message['name'];
-
+            $data['status']=$message['status'];
             $session = $this->repo->create($data);
             return ApiResponseTrait::successResponse("", new SessionResource($session));
         } catch (\Throwable $e) {

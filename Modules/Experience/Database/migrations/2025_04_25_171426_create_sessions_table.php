@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('code');
             $table->foreignId( 'experience_id')->constrained('experineces_semesters')->onDelete('cascade');
             $table->foreignId( 'teacher_id')->constrained('users')->onDelete('cascade');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

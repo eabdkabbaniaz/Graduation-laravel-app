@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('number_of_questions');
             $table->double('Final_grade');
+            $table->double('time');
             $table-> date('Start_date');
             $table->date('End_date');
             $table->boolean('status')->default(false);

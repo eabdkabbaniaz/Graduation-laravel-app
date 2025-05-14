@@ -43,7 +43,10 @@ class ExamController extends Controller
 
     public function update(ExamRequest $request, $id)
     {
-        $exam = $this->examService->update($id, $request->validated());
+   $data =$request->validated();
+        $data['teacher_id'] = auth()->id();
+
+        $exam = $this->examService->update($id, $data);
         return response()->json($exam);
     }
 

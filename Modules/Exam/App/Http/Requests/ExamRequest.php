@@ -18,6 +18,7 @@ class ExamRequest extends FormRequest
             'Start_date' => 'required|date|after_or_equal:today',
             'End_date' => 'required|date|after:Start_date',
             'subject_id' => 'required',
+            'time'=>'required|numeric|min:0'
         ];
     }
 

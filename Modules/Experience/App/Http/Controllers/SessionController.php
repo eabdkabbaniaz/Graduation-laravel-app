@@ -37,7 +37,6 @@ class SessionController extends Controller
     
         public function store(StoreSessionRequest $request)
        {
-     
             return $this->service->store($request->validated());
 
     

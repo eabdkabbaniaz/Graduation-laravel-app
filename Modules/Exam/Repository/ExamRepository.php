@@ -34,7 +34,15 @@ class ExamRepository
     public function update($id, array $data)
     {
         $exam = $this->find($id);
-        $exam->update($data);
+          $exam->subject()->delete();
+        $exam->update($data['data']);
+         
+   foreach(   $data['subject_id'] as $subject){
+            ExamSubject::create([
+                "exam_id"=>$exam->id,
+                "subject_id"=>$subject
+            ]);
+        }
         return $exam;
     }
 

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('exam_subjects', function (Blueprint $table) {
             $table->id();
             $table->foreignId( 'subject_id')->constrained('subjects');
-            $table->foreignId( 'exam_id')->constrained('exams');
+            $table->foreignId( 'exam_id')->constrained('exams')->onDelete('cascade');
             $table->timestamps();
         });
     }

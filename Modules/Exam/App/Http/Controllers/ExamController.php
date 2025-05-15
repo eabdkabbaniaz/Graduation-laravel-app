@@ -52,6 +52,7 @@ class ExamController extends Controller
 
     public function destroy($id)
     {
+
         $this->examService->delete($id);
         return response()->json(['message' => 'Exam deleted']);
     }

@@ -48,7 +48,8 @@ class ExamRepository
 
     public function delete($id)
     {
-        return Exam::destroy($id);
+         $exam =Exam::find($id);
+        return   $exam->delete();
     }
 
     public function expired()

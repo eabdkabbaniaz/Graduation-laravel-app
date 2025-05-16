@@ -15,8 +15,8 @@ class SessionResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'code' => $this->code,
-            'experience_id' => $this->experience_id,
-            'teacher_id' => $this->teacher_id,
+            'experience_id' => $this->experiences->experience,
+            'teacher_id' => $this->teacher,
             'drugs' => DrugResource::collection($this->whenLoaded('drugs')),
             'created_at' => $this->created_at,
 

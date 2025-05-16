@@ -99,7 +99,18 @@ class SessionService
     {
         try {
 
-            $session = $this->repo->all($data);
+            $session = $this->repo->getall($data);
+            return ApiResponseTrait::successResponse("", SessionResource::collection($session));
+        } catch (\Throwable $e) {
+            return ApiResponseTrait::errorResponse($e->getMessage());
+        }   
+    }
+
+    public function getall()
+    {
+        try {
+
+            $session = $this->repo->getall();
             return ApiResponseTrait::successResponse("", SessionResource::collection($session));
         } catch (\Throwable $e) {
             return ApiResponseTrait::errorResponse($e->getMessage());

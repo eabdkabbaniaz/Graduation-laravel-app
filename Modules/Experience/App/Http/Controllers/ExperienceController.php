@@ -7,6 +7,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Modules\Experience\App\Http\Requests\ExperienceRequest;
+use Modules\Experience\App\Models\ExperienceDrug;
+use Modules\Experience\App\Models\ExperienceSemester;
 use Modules\Experience\Services\ExperienceService;
 
 class ExperienceController extends Controller
@@ -33,6 +35,15 @@ class ExperienceController extends Controller
     public function show($id)
     {
         return   $this->experience_service->show($id);
+    }
+    public function getDrugs($id)
+    {
+        return ExperienceDrug::with('drugs')->where('experience_id',$id)->get();
+        // return   $this->experience_service->show($id);
+    }
+    public function getExperience()
+    {
+            return ExperienceSemester::with('Experience')->get();
     }
 
 

@@ -16,7 +16,7 @@ class ExperienceSemester extends Model
 
     public function Experience()
     {
-        return $this->belongsTo(Experience::class);
+        return $this->belongsTo(Experience::class,'experience_id');
     }
 
     public function sessions()

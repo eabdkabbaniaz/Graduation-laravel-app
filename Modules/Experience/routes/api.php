@@ -30,11 +30,15 @@ Route::group(['prefix' => 'Experinence'],function(){
     Route::delete('/destroy/{id}', [ExperienceController::class, 'destroy']);
     Route::patch('/update/{id}', [ExperienceController::class, 'update']);
     Route::get('/changeStatus/{id}', [ExperienceController::class, 'changeStatus']);
+    Route::get('/getDrugs/{id}', [ExperienceController::class, 'getDrugs']);
+    Route::get('/getExperience', [ExperienceController::class, 'getExperience']);
+
 });
 
 
 Route::prefix('session')->group(function () {
     Route::get('/index/{data}', [SessionController::class, 'index']);
+    Route::get('/getall', [SessionController::class, 'getall']);
     Route::get('/AllExperience/{data}', [SessionController::class, 'AllExperience']);
     Route::get('/AllSemester', [SessionController::class, 'AllSemester']);
     Route::post('/store', [SessionController::class, 'store']);

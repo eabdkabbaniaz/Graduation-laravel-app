@@ -22,7 +22,16 @@ class SessionController extends Controller
     
         public function index($data)
         {
+            // return Session::with('drugs','experiences.Experience','teacher')->get();
+
             return$this->service->index($data);
+        }
+    
+        public function getall()
+        {
+            // return Session::with('drugs','experiences.Experience','teacher')->get();
+
+            return$this->service->getall();
         }
     
         public function AllExperience($data)

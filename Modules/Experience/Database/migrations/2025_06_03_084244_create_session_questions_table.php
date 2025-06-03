@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('session_users', function (Blueprint $table) {
+        Schema::create('session_questions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId( 'session_id')->constrained('sessions')->onDelete('cascade');
-            $table->foreignId( 'user_id')->constrained('users')->onDelete('cascade');
-            $table->double('mark')->default(0.0);
-              $table->string('report')->nullable();
+            $table->string('question');
+            $table->enum('question_mode', ['fixed', 'dynamic']);
+            $table->foreignId('session_id')->constrained('sessions')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('session_users');
+        Schema::dropIfExists('session_questions');
     }
 };

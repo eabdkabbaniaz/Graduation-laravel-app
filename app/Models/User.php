@@ -11,6 +11,7 @@ use Modules\Exam\App\Models\ExamUser;
 use Modules\Experience\App\Models\Session;
 use Modules\Experience\App\Models\UserSession;
 use Modules\Student\App\Models\Student;
+use Modules\Student\App\Models\StudentSessionReport;
 use Modules\Student\App\Models\Teacher;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -58,6 +59,10 @@ class User extends Authenticatable
     public function sessions(){
         return $this->hasMany(UserSession::class);
     }
+public function sessionsReport(){
+        return $this->hasMany(UserSession::class,'user_id');
+    }
+
     // public function attendances(){
     //     return $this->hasMany(UserSession::class);
     // }

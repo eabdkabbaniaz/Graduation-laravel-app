@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Modules\Student\App\Http\Controllers\AuthController;
 use Modules\Student\App\Http\Controllers\CategoryController;
+use Modules\Student\App\Http\Controllers\ReportController;
+use Modules\Student\App\Http\Controllers\ReportsController;
 use Modules\Student\App\Http\Controllers\StudentAdminController;
 use Modules\Student\App\Http\Controllers\StudentController;
 use Modules\Student\App\Http\Controllers\StudentImportController;
@@ -26,6 +28,12 @@ Route::middleware(['auth:sanctum'])->prefix('v1')->name('api.')->group(function 
 });
 
 
+
+Route::group(['prefix'=>'Report'],function(){
+Route::post('create', [ReportController::class, 'create'])->middleware('auth:sanctum');
+Route::get('index', [ReportController::class, 'index'])->middleware('auth:sanctum');
+Route::get('show/session_id/{id}', [ReportController::class, 'show'])->middleware('auth:sanctum');
+});
 
 Route::group(['prefix'=>'Auth'],function(){
 Route::post('ChangePassword', [AuthController::class, 'ChangePassword'])->middleware('auth:sanctum');

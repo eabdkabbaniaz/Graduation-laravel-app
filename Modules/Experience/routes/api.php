@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use Modules\Experience\App\Http\Controllers\ExperienceController;
 use Modules\Experience\App\Http\Controllers\SessionAttendanceController;
 use Modules\Experience\App\Http\Controllers\SessionController;
+use Modules\Experience\App\Http\Controllers\SessionQuestionsController;
+
 
 /*
     |--------------------------------------------------------------------------
@@ -45,6 +47,15 @@ Route::prefix('session')->group(function () {
     Route::get('/show/{id}', [SessionController::class, 'show']);
     Route::put('/update/{id}', [SessionController::class, 'update']);
     Route::delete('/destroy/{id}', [SessionController::class, 'destroy']);
+});
+Route::prefix('sessionQuestion')->group(function () {
+    Route::post('/store', [SessionQuestionsController::class, 'store']);
+        Route::put('/update/{id}', [SessionQuestionsController::class, 'update']);
+          Route::delete('/destroy/{id}', [SessionQuestionsController::class, 'destroy']);
+              Route::get('/show/{id}', [SessionQuestionsController::class, 'show']);
+               Route::get('/index', [SessionQuestionsController::class, 'index']);
+               Route::get('/showSessionQuestion/question_id/{question_id}', [SessionQuestionsController::class, 'showSessionQuestion']);
+
 });
 
 });

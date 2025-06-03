@@ -12,7 +12,7 @@ class UserSession extends Model
     use HasFactory;
     protected $table = 'session_users';
 
-    protected $fillable = ['session_id', 'user_id', 'mark'];
+    protected $fillable = ['session_id','report', 'user_id', 'mark'];
 
     public function user()
     {

@@ -30,58 +30,57 @@ class TeacherController extends Controller
     }
     public function create(CreateTeacherRequest $request)
     {
-        // // return $request;
-        // try {
+        try {
         
-        //     $result= $this->service->register($request->validated());
+            $result= $this->service->register($request->validated());
         
-        //        return ApiResponseTrait::successResponse("succ",$result );
-        //    } catch (\Throwable $e) {
-        //        return ApiResponseTrait::errorResponse($e->getMessage());
-        //    } 
-        $examSetting = Setting::where('name', 'exam')->first();
-        $assessmentSetting = Setting::where('name', 'assessment')->first();
-        $attendanceSetting = Setting::where('name', 'attendance')->first();
+               return ApiResponseTrait::successResponse("succ",$result );
+           } catch (\Throwable $e) {
+               return ApiResponseTrait::errorResponse($e->getMessage());
+           } 
+//         $examSetting = Setting::where('name', 'exam')->first();
+//         $assessmentSetting = Setting::where('name', 'assessment')->first();
+//         $attendanceSetting = Setting::where('name', 'attendance')->first();
 
-        $examCount = Exam::count();
-        $sessionCount = Session::count();
+//         $examCount = Exam::count();
+//         $sessionCount = Session::count();
 
-        $students = Student::all();
+//         $students = Student::all();
 
-        foreach ($students as $student) {
-            $userId = $student->user_id;
+//         foreach ($students as $student) {
+//             $userId = $student->user_id;
 
        
-            $examGrades = ExamUser::where('user_id', $userId)->pluck('grade');
-            $examRawScore = $examSetting->calculation_method === 'sum'
-                ? $examGrades->sum()
-                : ($examGrades->count() > 0 ? $examGrades->sum() / $examGrades->count() : 0);
-            $weightedExamScore = $examRawScore * ($examSetting->final_mark / 100);
+//             $examGrades = ExamUser::where('user_id', $userId)->pluck('grade');
+//             $examRawScore = $examSetting->calculation_method === 'sum'
+//                 ? $examGrades->sum()
+//                 : ($examGrades->count() > 0 ? $examGrades->sum() / $examGrades->count() : 0);
+//             $weightedExamScore = $examRawScore * ($examSetting->final_mark / 100);
 
      
-            $sessionMarks = UserSession::where('user_id', $userId)->pluck('mark');
-            $assessmentRawScore = $assessmentSetting->calculation_method === 'sum'
-                ? $sessionMarks->sum()
-                : ($sessionCount > 0 ? $sessionMarks->sum() / $sessionCount : 0);
-            $weightedAssessmentScore = $assessmentRawScore * ($assessmentSetting->final_mark / 100);
+//             $sessionMarks = UserSession::where('user_id', $userId)->pluck('mark');
+//             $assessmentRawScore = $assessmentSetting->calculation_method === 'sum'
+//                 ? $sessionMarks->sum()
+//                 : ($sessionCount > 0 ? $sessionMarks->sum() / $sessionCount : 0);
+//             $weightedAssessmentScore = $assessmentRawScore * ($assessmentSetting->final_mark / 100);
 
             
-            $sessionsAttended = UserSession::where('user_id', $userId)->count();
-            $attendancePercent = $sessionCount > 0 ? ($sessionsAttended / $sessionCount) * 100 : 0;
-            $weightedAttendance = $attendancePercent * ($attendanceSetting->final_mark / 100);
+//             $sessionsAttended = UserSession::where('user_id', $userId)->count();
+//             $attendancePercent = $sessionCount > 0 ? ($sessionsAttended / $sessionCount) * 100 : 0;
+//             $weightedAttendance = $attendancePercent * ($attendanceSetting->final_mark / 100);
 
           
-            $finalGrade = $weightedExamScore + $weightedAssessmentScore + $weightedAttendance;
+//             $finalGrade = $weightedExamScore + $weightedAssessmentScore + $weightedAttendance;
 
-            $student->update([
-                'exam_score' => $examRawScore,
-                'assessment_score' => $assessmentRawScore,
-                'attendance_average' => $attendancePercent,
-                'final_grade' => $finalGrade,
-            ]);
-        }
-return  $students;
-        // $this->info('✔️ تم حساب وتحديث علامات جميع الطلاب.');
+//             $student->update([
+//                 'exam_score' => $examRawScore,
+//                 'assessment_score' => $assessmentRawScore,
+//                 'attendance_average' => $attendancePercent,
+//                 'final_grade' => $finalGrade,
+//             ]);
+//         }
+// return  $students;
+//         // $this->info('✔️ تم حساب وتحديث علامات جميع الطلاب.');
     
     }
 

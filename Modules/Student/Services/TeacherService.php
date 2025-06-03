@@ -71,7 +71,7 @@ class TeacherService
         //         ->to($data['email'])
         //         ->subject(' Verification Code ');    
         // }); 
-        return ApiResponseTrait::successResponse("add teacher success" ,$data);
+        return ApiResponseTrait::successResponse("add teacher success ". $password ,$data);
         // return $data;
     }
 

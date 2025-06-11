@@ -26,10 +26,7 @@ Route::prefix('medication')->group(function () {
     Route::get('/show/{id}', [MedicationController::class, 'show']);
     Route::put('/update/{id}', [MedicationController::class, 'update']);
     Route::delete('/destroy/{id}', [MedicationController::class, 'destroy']);
-
-    Route::get('/filter/system/{systemId}', [MedicationController::class, 'filterBySystem']);
-    Route::get('/filter/effect/{effectId}', [MedicationController::class, 'filterByEffect']);
-
+    Route::get('/filter/{systemId?}/{effectId?}', [MedicationController::class, 'filter']);
 });
 Route::prefix('effect')->group(function () {
     Route::get('/index', [EffectController::class, 'index']);

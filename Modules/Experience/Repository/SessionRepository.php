@@ -54,6 +54,10 @@ class SessionRepository
         {
             return Session::with('drugs','experiences.Experience','teacher')->get();
         }
+        public function getSessions()
+        {
+            return Session::with('drugs')->get();
+        }
         public function AllExperience($data)
         {
             return ExperienceSemester::with('Experience')->where('semester_id',$data)->get();

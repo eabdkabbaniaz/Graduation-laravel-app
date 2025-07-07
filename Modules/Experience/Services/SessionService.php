@@ -7,6 +7,7 @@ use Modules\Experience\App\Models\Experience;
 use Modules\Experience\App\Models\ExperienceSemester;
 use Modules\Experience\App\Models\Session;
 use Modules\Experience\App\resources\SessionResource;
+use Modules\Experience\App\resources\GetSessionResource;
 use Modules\Experience\Repository\SessionRepository;
 use Modules\Traits\ApiResponseTrait;
 use Exception;
@@ -95,12 +96,23 @@ class SessionService
 
     }
 
-    public function index($data)
+    public function get($data)
     {
         try {
 
-            $session = $this->repo->getall($data);
+            $session = $this->repo->getSessions($data);
+            // return  $session;
+            return ApiResponseTrait::successResponse("",  GetSessionResource::collection($session));
+                } catch (\Throwable $e) {
+            return ApiResponseTrait::errorResponse($e->getMessage());
+        }   
+    }
+    public function index($data)
+    {
+        try {
+       $session = $this->repo->getSessions($data);
             return ApiResponseTrait::successResponse("", SessionResource::collection($session));
+          
         } catch (\Throwable $e) {
             return ApiResponseTrait::errorResponse($e->getMessage());
         }   

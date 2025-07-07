@@ -27,6 +27,13 @@ class SessionController extends Controller
             return$this->service->index($data);
         }
     
+        public function getSessions($data)
+        {
+            // return Session::with('drugs','experiences.Experience','teacher')->get();
+
+            return$this->service->get($data);
+        }
+    
         public function getall()
         {
             // return Session::with('drugs','experiences.Experience','teacher')->get();

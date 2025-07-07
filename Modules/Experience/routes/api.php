@@ -6,6 +6,7 @@ use Modules\Experience\App\Http\Controllers\ExperienceController;
 use Modules\Experience\App\Http\Controllers\SessionAttendanceController;
 use Modules\Experience\App\Http\Controllers\SessionController;
 use Modules\Experience\App\Http\Controllers\SessionQuestionsController;
+use Modules\Experience\App\Http\Controllers\SemesterController;
 
 
 /*
@@ -40,6 +41,7 @@ Route::group(['prefix' => 'Experinence'],function(){
 
 Route::prefix('session')->group(function () {
     Route::get('/index/{data}', [SessionController::class, 'index']);
+    Route::get('/getSessions/{data}', [SessionController::class, 'getSessions']);
     Route::get('/getall', [SessionController::class, 'getall']);
     Route::get('/AllExperience/{data}', [SessionController::class, 'AllExperience']);
     Route::get('/AllSemester', [SessionController::class, 'AllSemester']);
@@ -57,5 +59,12 @@ Route::prefix('sessionQuestion')->group(function () {
                Route::get('/showSessionQuestion/question_id/{question_id}', [SessionQuestionsController::class, 'showSessionQuestion']);
 
 });
+
+});
+Route::prefix('semester')->group(function () {
+    Route::post('/store', [SemesterController::class, 'store']);
+    Route::put('/update/{id}', [SemesterController::class, 'update']);
+     Route::delete('/destroy/{id}', [SemesterController::class, 'destroy']);
+
 
 });

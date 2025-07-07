@@ -37,7 +37,16 @@ class SessionRepository
     
         public function find($id)
         {
-            return Session::with('drugs')->findOrFail($id);
+            $session= Session::with('drugs')->findOrFail($id);
+            $student = auth()->user();
+
+            // تحقق من وجود صف في جدول session_users لهذا الطالب في هذه الجلسة
+            $hasAttended = \DB::table('session_users')
+            ->where('session_id', $session->id)
+            ->where('user_id', $student->id)
+            ->exists();
+            $session['has_attended']= $hasAttended;
+        return $session;
         }
     
         public function get($id)

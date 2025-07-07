@@ -38,4 +38,8 @@ class Session extends Model
                     ->withPivot('mark')
                     ->withTimestamps();
     }
+    public function attendances()
+{
+    return $this->hasMany(Attendance::class);
+}
 }

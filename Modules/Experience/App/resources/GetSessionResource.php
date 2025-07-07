@@ -20,6 +20,7 @@ class GetSessionResource extends JsonResource
             'drugs' => DrugResource::collection($this->whenLoaded('drugs')),
             'created_at' => $this->created_at,
             'status' => $this->status,
+            'mark' => $this->mark,
 
         ];    }
 }

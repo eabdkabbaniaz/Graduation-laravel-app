@@ -6,6 +6,7 @@ use Modules\Experience\App\Models\Experience;
 use Modules\Experience\App\Models\ExperienceSemester;
 use Modules\Experience\App\Models\Semester;
 use Modules\Experience\App\Models\Session;
+use Modules\Mark\App\Models\Setting;
 
 class SessionRepository
 {
@@ -13,6 +14,10 @@ class SessionRepository
         public function create(array $data)
         {
             // return $data;
+            $type = Setting::where('name', 'assessment')->first();
+            if( $type->calculation_method=='average'&&$type->final_mark!=$data['mark']){
+                 return;
+            }
             $session = Session::create($data);
             $session->drugs()->sync($data['drug_ids']);
             return $session;

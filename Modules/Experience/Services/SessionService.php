@@ -53,7 +53,13 @@ class SessionService
             $data['experience_id']=$message['experience_id'];
             $data['name']=$message['name'];
             $data['status']=$message['status'];
+            $data['mark']=$message['mark'];
+        //    return $data;
             $session = $this->repo->create($data);
+            if(!$session){
+            return ApiResponseTrait::errorResponse("wrong input");
+
+            }
             return ApiResponseTrait::successResponse("", new SessionResource($session));
         } catch (\Throwable $e) {
             return ApiResponseTrait::errorResponse($e->getMessage());

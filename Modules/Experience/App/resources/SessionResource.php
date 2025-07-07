@@ -21,6 +21,7 @@ class SessionResource extends JsonResource
             'created_at' => $this->created_at,
             'status' => $this->status,
             'has_attended' => $this->has_attended,
+            'mark' => $this->mark,
 
         ];    }
 }

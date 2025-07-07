@@ -1,6 +1,7 @@
 <?php
 
 namespace Modules\Experience\App\Models;
+use Modules\Experience\App\Models\Session;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -17,5 +18,10 @@ class UserSession extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function ss()
+    {
+        return $this->belongsTo(Session::class,'session_id');
     }
 }

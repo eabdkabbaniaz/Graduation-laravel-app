@@ -34,4 +34,9 @@ class ExamUser extends Model
     {
         return $this->hasMany(ExamQuestion::class, 'exam_id');
     }
+    
+    public function ee()
+    {
+        return $this->belongsTo(Exam::class,'exam_id');
+    }
 }

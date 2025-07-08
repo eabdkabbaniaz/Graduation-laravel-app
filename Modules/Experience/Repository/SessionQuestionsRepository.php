@@ -12,13 +12,38 @@ use Modules\Experience\App\Models\SessionQuestion;
 class SessionQuestionsRepository
 {
 
-    public function create(array $data)
-    {
+    // public function create(array $data)
+    // {
+    //     $sessionQuestion = SessionQuestion::create([
+    //         'question' => $data['question'],
+    //         'question_mode' => $data['question_mode'],
+    //         'session_id' => $data['session_id'],
+    //     ]);
+    //     if ($data['question_mode'] === 'dynamic' && !empty($data['answers'])) {
+    //         $answers = array_map(function ($answer) use ($sessionQuestion) {
+    //             $answer['session_question_id'] = $sessionQuestion->id;
+    //             return $answer;
+    //         }, $data['answers']);
+
+    //         $sessionQuestion->sessionAnswers()->createMany($answers);
+    //     }
+
+    //     return $sessionQuestion->fresh('sessionAnswers');
+    // }
+
+    public function create(array $questionsData)
+{
+    $results = [];
+
+    foreach ($questionsData['questions'] as $data) {
         $sessionQuestion = SessionQuestion::create([
             'question' => $data['question'],
             'question_mode' => $data['question_mode'],
-            'session_id' => $data['session_id'],
+            'question_mark' => $data['question_mark'],
+            'session_id' => $questionsData['session_id'],
         ]);
+
+       
         if ($data['question_mode'] === 'dynamic' && !empty($data['answers'])) {
             $answers = array_map(function ($answer) use ($sessionQuestion) {
                 $answer['session_question_id'] = $sessionQuestion->id;
@@ -28,9 +53,11 @@ class SessionQuestionsRepository
             $sessionQuestion->sessionAnswers()->createMany($answers);
         }
 
-        return $sessionQuestion->fresh('sessionAnswers');
+        $results[] = $sessionQuestion->fresh('sessionAnswers');
     }
 
+    return $results;
+}
 
 
 

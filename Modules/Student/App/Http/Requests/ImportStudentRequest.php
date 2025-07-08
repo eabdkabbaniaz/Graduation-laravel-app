@@ -15,6 +15,7 @@ class ImportStudentRequest extends FormRequest
             'file' => 'required|file|mimes:xlsx,csv',
             'category_number'=>'required',
             'distributionMethod'=>'required',
+            'archive'=>'required|in:yes,no'
         ];
     }
 

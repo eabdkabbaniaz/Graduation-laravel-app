@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Modules\Exam\App\Models\ExamUser;
 use Modules\Experience\App\Models\Session;
 use Modules\Experience\App\Models\UserSession;
+use Modules\Student\App\Models\Category;
 use Modules\Student\App\Models\Student;
 use Modules\Student\App\Models\StudentSessionReport;
 use Modules\Student\App\Models\Teacher;
@@ -68,6 +69,9 @@ public function sessionsReport(){
     // }
     public function exam(){
         return $this->hasMany(ExamUser::class);
+    }
+      public function category(){
+        return $this->belongsToMany(Category::class,'students');
     }
 
 }

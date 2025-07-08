@@ -17,12 +17,13 @@ class CalculateStudentScores extends Command
 
     public function handle()
     {
+        // echo("hhhhhhhh");
         $examSetting = Setting::where('name', 'exam')->first();
         $assessmentSetting = Setting::where('name', 'assessment')->first();
         $attendanceSetting = Setting::where('name', 'attendance')->first();
 
-        $examCount = Exam::count();
-        $sessionCount = Session::count();
+$examCount = Exam::where('Final_grade', '!=', 0)->count();
+$sessionCount = Session::where('mark', '!=', 0)->count();
 
         $students = Student::all();
 

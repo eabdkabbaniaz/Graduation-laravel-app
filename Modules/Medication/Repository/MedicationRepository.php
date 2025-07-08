@@ -52,20 +52,18 @@ class MedicationRepository implements MedicationRepositoryInterface
         return Medication::destroy($id);
     }
 
-    public function getBySystem($systemId)
+    public function filter($systemId = null, $effectId = null)
     {
-        return Medication::whereHas('effects', function ($query) use ($systemId) {
-            $query->where('system_id', $systemId);
+        return Medication::whereHas('effects', function ($query) use ($systemId, $effectId) {
+            if ($systemId) {
+                $query->where('system_id', $systemId);
+            }
+            if ($effectId) {
+                $query->where('effect_id', $effectId);
+            }
         })
-        ->with(['effects.system', 'effects.effect'])->get();
-    }
-
-    public function getByEffect($effectId)
-    {
-        return Medication::whereHas('effects', function ($query) use ($effectId) {
-            $query->where('effect_id', $effectId);
-        })
-        ->with(['effects.system', 'effects.effect'])->get();
+        ->with(['effects.system', 'effects.effect'])
+        ->get();
     }
 
 }

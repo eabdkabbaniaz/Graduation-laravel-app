@@ -7,6 +7,7 @@ use Modules\Experience\App\Models\Experience;
 use Modules\Experience\App\Models\ExperienceSemester;
 use Modules\Experience\App\Models\Session;
 use Modules\Experience\App\resources\SessionResource;
+use Modules\Experience\App\resources\GetSessionResource;
 use Modules\Experience\Repository\SessionRepository;
 use Modules\Traits\ApiResponseTrait;
 use Exception;
@@ -52,7 +53,13 @@ class SessionService
             $data['experience_id']=$message['experience_id'];
             $data['name']=$message['name'];
             $data['status']=$message['status'];
+            $data['mark']=$message['mark'];
+        //    return $data;
             $session = $this->repo->create($data);
+            if(!$session){
+            return ApiResponseTrait::errorResponse("wrong input");
+
+            }
             return ApiResponseTrait::successResponse("", new SessionResource($session));
         } catch (\Throwable $e) {
             return ApiResponseTrait::errorResponse($e->getMessage());
@@ -95,12 +102,23 @@ class SessionService
 
     }
 
-    public function index($data)
+    public function get($data)
     {
         try {
 
-            $session = $this->repo->getall($data);
+            $session = $this->repo->getSessions($data);
+            // return  $session;
+            return ApiResponseTrait::successResponse("",  GetSessionResource::collection($session));
+                } catch (\Throwable $e) {
+            return ApiResponseTrait::errorResponse($e->getMessage());
+        }   
+    }
+    public function index($data)
+    {
+        try {
+       $session = $this->repo->all($data);
             return ApiResponseTrait::successResponse("", SessionResource::collection($session));
+          
         } catch (\Throwable $e) {
             return ApiResponseTrait::errorResponse($e->getMessage());
         }   

@@ -110,7 +110,7 @@ $subject =ExamSubject::where('exam_id' ,$exam->id)->select('subject_id');
         $questionsWithAnswers = $examUser->questions()->with('question.answers')->get();
 
         return response()->json([
-            'exam' => $exam->only(['id', 'name', 'Final_grade','number_of_questions']),
+            'exam' => $exam->only(['id', 'name','time', 'Final_grade','number_of_questions']),
             'questions' => $questionsWithAnswers
         ]);
     } catch (\Exception $e) {

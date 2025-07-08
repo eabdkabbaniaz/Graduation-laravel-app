@@ -43,9 +43,10 @@ return $totalsession;
     public function Statistics($semester_id)
     {
         $studentId=Auth::user()->id;
-         $user= User::with('sessions', 'exam','students')->findOrFail($studentId);
+         $user= User::with('sessions.ss', 'exam.ee','students')->findOrFail($studentId);
 $user['numExam']   = $user->exam->count();
 $Sessions=ExperienceSemester::with('sessions')->where('semester_id',$semester_id)->first();
+$totalsession=[];
 foreach( $Sessions->sessions as $session)
 {
     $totalsession[]= $session->id;

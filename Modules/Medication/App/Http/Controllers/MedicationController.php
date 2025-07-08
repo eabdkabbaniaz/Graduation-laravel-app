@@ -48,14 +48,11 @@ class MedicationController extends Controller
         }    
     }
 
-    public function filterBySystem($systemId)
+    public function filter($systemId = null, $effectId = null)
     {
-        return response()->json($this->medicationService->filterBySystem($systemId));
-    }
-
-    public function filterByEffect($effectId)
-    {
-        return response()->json($this->medicationService->filterByEffect($effectId));
+        return response()->json(
+            $this->medicationService->filter($systemId, $effectId)
+        );
     }
 
 }

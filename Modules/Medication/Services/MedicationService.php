@@ -144,50 +144,24 @@ class MedicationService
            }       
     }
 
-    public function filterBySystem($systemId)
+    public function filter($systemId = null, $effectId = null)
     {
         try {
-            $medications = $this->medicationRepository->getBySystem($systemId);
-
+            $medications = $this->medicationRepository->filter($systemId, $effectId);
+    
             $formatted = $medications->map(function ($med) {
                 $data = $med->toArray();
-
                 $data['system'] = $med->effects->system ?? null;
                 $data['effect'] = $med->effects->effect ?? null;
-
-                unset($data['effects']); // نحذف effects
-
-                return $data;
-            });
-
-            return ApiResponseTrait::successResponse("Filtered by system", $formatted)->original;
-
-        } catch (\Throwable $e) {
-            return ApiResponseTrait::errorResponse($e->getMessage());
-        }
-    }
-
-    public function filterByEffect($effectId)
-    {
-        try {
-            $medications = $this->medicationRepository->getByEffect($effectId);
-
-            $formatted = $medications->map(function ($med) {
-                $data = $med->toArray();
-
-                $data['system'] = $med->effects->system ?? null;
-                $data['effect'] = $med->effects->effect ?? null;
-
                 unset($data['effects']);
-
                 return $data;
             });
-
-            return ApiResponseTrait::successResponse("Filtered by effect", $formatted)->original;
-
+    
+            return ApiResponseTrait::successResponse("Filtered successfully", $formatted)->original;
+    
         } catch (\Throwable $e) {
             return ApiResponseTrait::errorResponse($e->getMessage());
         }
     }
-
+    
 }

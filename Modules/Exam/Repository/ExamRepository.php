@@ -10,7 +10,7 @@ class ExamRepository
 {
     public function all()
     {
-        return Exam::with('subject', 'teacher')->get();
+        return Exam::with('subject.subjects', 'teacher')->get();
     }
 
     public function find($id)

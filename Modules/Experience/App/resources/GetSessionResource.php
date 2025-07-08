@@ -4,7 +4,7 @@ namespace Modules\Experience\App\resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SessionResource extends JsonResource
+class GetSessionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,12 +15,11 @@ class SessionResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'code' => $this->code,
-            'experience_id' => $this->experiences->experience,
-            'teacher_id' => $this->teacher,
+            'experience_id' => $this->experience_id,
+            'teacher_id' => $this->teacher_id,
             'drugs' => DrugResource::collection($this->whenLoaded('drugs')),
             'created_at' => $this->created_at,
             'status' => $this->status,
-            'has_attended' => $this->has_attended,
             'mark' => $this->mark,
 
         ];    }

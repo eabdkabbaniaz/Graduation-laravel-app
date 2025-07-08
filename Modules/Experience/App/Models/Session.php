@@ -16,7 +16,7 @@ class Session extends Model
      */
  
 
-    protected $fillable = ['name', 'code', 'experience_id', 'teacher_id','status'];
+    protected $fillable = ['name', 'mark','code', 'experience_id', 'teacher_id','status'];
 
     public function experiences()
     {
@@ -38,4 +38,8 @@ class Session extends Model
                     ->withPivot('mark')
                     ->withTimestamps();
     }
+    public function attendances()
+{
+    return $this->hasMany(Attendance::class);
+}
 }

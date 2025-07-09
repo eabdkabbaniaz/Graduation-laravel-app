@@ -39,7 +39,7 @@ class SessionQuestionsRepository
         $sessionQuestion = SessionQuestion::create([
             'question' => $data['question'],
             'question_mode' => $data['question_mode'],
-            'question_mark' => $data['question_mark'],
+            'questions_mark' => $data['question_mark'],
             'session_id' => $questionsData['session_id'],
         ]);
 

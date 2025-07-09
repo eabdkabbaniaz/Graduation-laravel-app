@@ -15,11 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('question');
             $table->enum('question_mode', ['fixed', 'dynamic']);
-<<<<<<< HEAD
-             $table->double('question_mark');
-=======
             $table->double('questions_mark')->default(0);
->>>>>>> 478c5be99d8074f3e1452a53725909e53b65ec69
             $table->foreignId('session_id')->constrained('sessions')->onDelete('cascade');
             $table->timestamps();
         });

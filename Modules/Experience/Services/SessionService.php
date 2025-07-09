@@ -106,7 +106,7 @@ class SessionService
     {
         try {
 
-            $session = $this->repo->getSessions($data);
+            $session = $this->repo->getSession($data);
             // return  $session;
             return ApiResponseTrait::successResponse("",  GetSessionResource::collection($session));
                 } catch (\Throwable $e) {

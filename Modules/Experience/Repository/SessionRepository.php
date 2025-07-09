@@ -64,6 +64,21 @@ class SessionRepository
             return Session::with('drugs','experiences.Experience','teacher')->where('experience_id',$data)->get();
         }
     
+        public function getSession($data)
+        {
+$session =  Session::with('drugs')->where('experience_id',$data)->get();
+
+            $student = auth()->user();
+foreach($session as $s){
+            // تحقق من وجود صف في جدول session_users لهذا الطالب في هذه الجلسة
+            $hasAttended = \DB::table('session_users')
+            ->where('session_id', $s->id)
+            ->where('user_id', $s->id)
+            ->exists();
+            $s['has_attended']= $hasAttended;}
+return $session;
+        }
+    
         public function getall()
         {
             return Session::with('drugs','experiences.Experience','teacher')->get();

@@ -21,12 +21,9 @@ use Modules\Experience\App\Http\Controllers\SemesterController;
 */
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::post('/attend', [SessionAttendanceController::class, 'attend']);
+ Route::post('/attend', [SessionAttendanceController::class, 'attend']);
 
-    // Route::get('experience', fn (Request $request) => $request->user())->name('experience');
-
-
-Route::group(['prefix' => 'Experinence'],function(){
+    Route::group(['prefix' => 'Experinence'],function(){
     Route::get('/index', [ExperienceController::class, 'index']);
     Route::get('/show/{id}', [ExperienceController::class, 'show']);
     Route::post('/create', [ExperienceController::class, 'create']);
@@ -37,9 +34,7 @@ Route::group(['prefix' => 'Experinence'],function(){
     Route::get('/getExperience', [ExperienceController::class, 'getExperience']);
 
 });
-
-
-Route::prefix('session')->group(function () {
+ Route::prefix('session')->group(function () {
     Route::get('/index/{data}', [SessionController::class, 'index']);
     Route::get('/getSessions/{data}', [SessionController::class, 'getSessions']);
     Route::get('/getall', [SessionController::class, 'getall']);

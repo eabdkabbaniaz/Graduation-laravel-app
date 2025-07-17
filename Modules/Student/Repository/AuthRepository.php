@@ -11,7 +11,8 @@ class AuthRepository
 
     public function findByUniversity_number($university_number)
     {
-        return  User::where('email', $university_number)->first();
+        $user = User::with('roles')->where('email', $university_number)->first();
+        return $user;
     }
 
 

@@ -19,31 +19,36 @@ use  Modules\Exam\app\Http\Controllers\SubjectController;
 Route::middleware(['auth:sanctum'])->group(function () {
     // Route::get('exam', fn (Request $request) => $request->user())->name('exam');
 
+    Route::group(['prefix' => 'questions', 'middleware' => ['role:superVisorTeacher']], function () {
+        Route::post('/store', [QuestionController::class, 'store']);
+        Route::put('/update/{id}', [QuestionController::class, 'update']);
+        Route::delete('/destroy/{id}', [QuestionController::class, 'destroy']);
+        Route::group(['middleware' => ['role:teacher|manger']], function () {
+            Route::get('/index', [QuestionController::class, 'index']);
+            Route::get('/show/{id}', [QuestionController::class, 'show']);
+        });
+    });
 
-
-Route::prefix('questions')->group(function () {
-    Route::get('/index', [QuestionController::class, 'index']);
-    Route::post('/store', [QuestionController::class, 'store']);
-    Route::get('/show/{id}', [QuestionController::class, 'show']);
-    Route::put('/update/{id}', [QuestionController::class, 'update']);
-    Route::delete('/destroy/{id}', [QuestionController::class, 'destroy']);
-});
-Route::prefix('subjects')->group(function () {
-    Route::get('/index', [SubjectController::class, 'index']);
-    Route::post('/store', [SubjectController::class, 'store']);
-    Route::get('/show/{id}', [SubjectController::class, 'show']);
-    Route::put('/update/{id}', [SubjectController::class, 'update']);
-    Route::delete('/destroy/{id}', [SubjectController::class, 'destroy']);
-});
-Route::prefix('exams')->group(function () {
-    Route::get('/index', [ExamController::class, 'index']);
-    Route::post('/store', [ExamController::class, 'store']);
-    Route::get('/show/{id}', [ExamController::class, 'show']);
-    Route::put('/update/{id}', [ExamController::class, 'update']);
-    Route::delete('/destroy/{id}', [ExamController::class, 'destroy']);
-    Route::get('/startExam/{id}', [ExamController::class, 'startExam']);
-    Route::post('/Addmark', [ExamController::class, 'Addmark']);
-});
-
-
+    Route::group(['prefix' => 'subjects', 'middleware' => ['role:superVisorTeacher']], function () {
+        Route::put('/update/{id}', [SubjectController::class, 'update']);
+        Route::delete('/destroy/{id}', [SubjectController::class, 'destroy']);
+        Route::post('/store', [SubjectController::class, 'store']);
+        Route::group(['middleware' => ['role:teacher|manger']], function () {
+            Route::get('/index', [SubjectController::class, 'index']);
+            Route::get('/show/{id}', [SubjectController::class, 'show']);
+        });
+    });
+    Route::group(['prefix' => 'exams', 'middleware' => ['role:superVisorTeacher']], function () {
+        Route::post('/store', [ExamController::class, 'store']);
+        Route::put('/update/{id}', [ExamController::class, 'update']);
+        Route::delete('/destroy/{id}', [ExamController::class, 'destroy']);
+        Route::group(['middleware' => ['role:teacher|manger']], function () {
+            Route::get('/index', [ExamController::class, 'index']);
+            Route::get('/show/{id}', [ExamController::class, 'show']);
+        });
+    });
+    Route::group(['prefix' => 'exams', 'middleware' => ['role:student']], function () {
+        Route::get('/startExam/{id}', [ExamController::class, 'startExam']);
+        Route::post('/Addmark', [ExamController::class, 'Addmark']);
+    });
 });

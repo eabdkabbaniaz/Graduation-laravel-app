@@ -29,10 +29,12 @@ Route::middleware(['auth:sanctum'])->prefix('v1')->name('api.')->group(function 
 
 
 
-Route::group(['prefix'=>'Report'],function(){
-Route::post('create', [ReportController::class, 'create'])->middleware('auth:sanctum');
-Route::get('index', [ReportController::class, 'index'])->middleware('auth:sanctum');
-Route::get('show/session_id/{id}', [ReportController::class, 'show'])->middleware('auth:sanctum');
+Route::group(['prefix'=>'Report',['auth:sanctum','role:superVisorTeacher|student|teacher']],function(){
+Route::post('create', [ReportController::class, 'create']);
+Route::get('show/session_id/{id}', [ReportController::class, 'show']);
+});
+Route::group(['prefix'=>'Report','middleware' => ['auth:sanctum','role:superVisorTeacher']],function(){
+Route::get('index', [ReportController::class, 'index']);
 });
 
 Route::group(['prefix'=>'Auth'],function(){
@@ -40,7 +42,7 @@ Route::post('ChangePassword', [AuthController::class, 'ChangePassword'])->middle
 Route::post('/login', [AuthController::class, 'login']);
 });
 
-Route::group(['prefix'=>'studentAdmin'],function(){
+Route::group(['prefix'=>'studentAdmin','middleware' => ['auth:sanctum','role:superVisorTeacher']],function(){
     Route::get('/index', [StudentAdminController::class, 'index']);
     Route::delete('/destroy/{id}', [StudentAdminController::class, 'destroy']);
     Route::patch('update/{id}', [StudentAdminController::class, 'update']);
@@ -55,7 +57,7 @@ Route::group(['prefix' => 'Category'],function(){
     Route::get('/show/{id}', [CategoryController::class, 'show']);
 });
 
-Route::group(['prefix'=>'teacher'],function(){
+Route::group(['prefix'=>'teacher','middleware' => ['auth:sanctum','role:superVisorTeacher']],function(){
     Route::get('/index', [TeacherController::class, 'index']);
     Route::get('/toggleActivation/{id}', [TeacherController::class, 'toggleActivation']);
     Route::delete('/destroy/{id}', [TeacherController::class, 'destroy']);
@@ -63,3 +65,4 @@ Route::group(['prefix'=>'teacher'],function(){
     Route::post('create', [TeacherController::class, 'create']);
     Route::post('login', [TeacherController::class, 'login']);
 });
+

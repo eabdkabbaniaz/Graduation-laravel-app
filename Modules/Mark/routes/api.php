@@ -16,21 +16,23 @@ use Modules\Mark\App\Http\Controllers\GradeController;
 */
 
 Route::middleware(['auth:sanctum'])->group(function () {
+    Route::group(['prefix' => 'Grades', 'middleware' => ['role:superVisorTeacher']], function () {
+        Route::get('getCalculationMethods', [GradeController::class, 'getCalculationMethods']);
+        Route::post('updateCalculationMethods/{id}', [GradeController::class, 'updateCalculationMethods']);
+        Route::group(['middleware' => ['role:teacher']], function () {
+            Route::get('studentGrades/{userId}', [GradeController::class, 'studentGrades']);
+            Route::get('allStudentGrades', [GradeController::class, 'allStudentGrades']);
+            Route::get('userDetails/{user_id}', [GradeController::class, 'userDetails']);
+        });
+    });
 
+    Route::group(['prefix' => 'Grades', 'middleware' => ['role:student']], function () {
+        Route::get('myGrades', [GradeController::class, 'myGrades']);
+        Route::get('myDetails', [GradeController::class, 'myDetails']);
+    });
 
-Route::group(['prefix' => 'Grades'],function(){
+    Route::group(['middleware' => ['role:superVisorTeacher']], function () {
+        Route::post('export', [GradeController::class, 'export']);
+    });
 
-    Route::get('myGrades', [GradeController::class, 'myGrades']);
-    Route::get('studentGrades/{userId}', [GradeController::class, 'studentGrades']);
-    Route::get('allStudentGrades' ,[GradeController::class , 'allStudentGrades']);
-    Route::get('getCalculationMethods', [GradeController::class, 'getCalculationMethods']);
-    Route::post('updateCalculationMethods/{id}', [GradeController::class, 'updateCalculationMethods']);
-    Route::get('myDetails', [GradeController::class, 'myDetails']);       
-    Route::get('userDetails/{user_id}', [GradeController::class, 'userDetails']);
-
-
-
-
-});});
-
-Route::post('export', [GradeController::class, 'export']);
+});

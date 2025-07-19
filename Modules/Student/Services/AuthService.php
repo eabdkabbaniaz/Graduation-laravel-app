@@ -51,4 +51,14 @@ class AuthService
             return ApiResponseTrait::errorResponse($e->getMessage());
         }
     }
+    public function profile()
+    {
+        try {
+            $student = auth()->user()->load('roles');
+            $student->role = $student->roles->pluck('name')->first();
+            return ApiResponseTrait::successResponse("userProfile", $student);
+        } catch (\Throwable $e) {
+            return ApiResponseTrait::errorResponse($e->getMessage());
+        }
+    }
 }

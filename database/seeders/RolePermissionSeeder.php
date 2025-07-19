@@ -20,6 +20,8 @@ class RolePermissionSeeder extends Seeder
         $roles = [
             Roles::TEACHER => Permissions::teacherPermissions(),
             Roles::STUDENT => Permissions::studentPermissions(),
+            Roles::MANGER => Permissions::studentPermissions(),
+            Roles::SUPERVISRTEACHER => Permissions::studentPermissions(),
         ];
         
         foreach ($roles as $roleName => $permissions) {

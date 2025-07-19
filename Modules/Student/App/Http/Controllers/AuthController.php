@@ -24,5 +24,9 @@ class AuthController extends Controller
     {
      return   $this->auth_service->changePassword($request); 
     }
+    public function profile()
+    {
+     return   $this->auth_service->profile(); 
+    }
     
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\Student\Services;
 
 
@@ -16,46 +17,46 @@ use Modules\Traits\ApiResponseTrait;
 class TeacherService
 {
     public $repo;
-    public function __construct(TeacherRepository $repo) {
-        $this->repo=$repo;
+    public function __construct(TeacherRepository $repo)
+    {
+        $this->repo = $repo;
     }
 
 
-   public  function  index()
+    public  function  index()
     {
         try {
             $teacher = $this->repo->index();
             return ApiResponseTrait::successResponse("تم الاضافة بنجاح", $teacher);
-        }  catch (\Throwable $e) {
+        } catch (\Throwable $e) {
             return ApiResponseTrait::errorResponse($e->getMessage());
         }
-    
     }
-   public  function  generateRandomPassword($length = 10)
+    public  function  generateRandomPassword($length = 10)
     {
         $upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $lower = 'abcdefghijklmnopqrstuvwxyz';
         $numbers = '0123456789';
         $all = $upper . $lower . $numbers;
-    
+
         $password = '';
-      
+
         $password .= $upper[random_int(0, strlen($upper) - 1)];
         $password .= $lower[random_int(0, strlen($lower) - 1)];
         $password .= $numbers[random_int(0, strlen($numbers) - 1)];
-    
+
         for ($i = 3; $i < $length; $i++) {
             $password .= $all[random_int(0, strlen($all) - 1)];
         }
-    
+
         return str_shuffle($password);
     }
-    
+
     public function register(array $data)
     {
-        $password=$this->generateRandomPassword(10);
-        $data['password']= Hash::make( $password);
-
+        $password = $this->generateRandomPassword(10);
+        $data['password'] = Hash::make($password);
+        $data['ROLE'] = $data['ROLE'];
         $data = $this->repo->create($data);
         // $accessToken = $user->createToken('access_token', [TokenAbility::ACCESS_API->value], Carbon::now()->addMinutes(config('sanctum.ac_expiration')));
         // $refreshToken = $user->createToken('refresh_token', [TokenAbility::ISSUE_ACCESS_TOKEN->value],
@@ -65,13 +66,13 @@ class TeacherService
         // event(new UserLoggedIn($user['id']));
         $massege['email'] = $data['email'];
         $massege['password'] = $data['password'];
-       //  SendTeacherCredentialsEmail::dispatch($data , $password);
+        //  SendTeacherCredentialsEmail::dispatch($data , $password);
         // Mail::raw("your email information is: email:{{$data['email'] }}your password {{ $password }}", function ($message) use ($data) {
         //     $message->from('walaaalrehawi@gmail.com', 'walaa')
         //         ->to($data['email'])
         //         ->subject(' Verification Code ');    
         // }); 
-        return ApiResponseTrait::successResponse("add teacher success ". $password ,$data);
+        return ApiResponseTrait::successResponse("add teacher success " . $password, $data);
         // return $data;
     }
 
@@ -88,35 +89,33 @@ class TeacherService
     //     Auth::guard('web')->logout();
     // }
 
-    public function update(  $message)
+    public function update($message)
     {
-        $returnData= $this->repo->update($message);
-        return ApiResponseTrait::successResponse("edit teacher success" ,$returnData);
+        $returnData = $this->repo->update($message);
+        return ApiResponseTrait::successResponse("edit teacher success", $returnData);
     }
 
     public function destroy($teacher)
     {
-        $data= $this->repo->destroy($teacher);
-        return ApiResponseTrait::successResponse("delete teacher success" ,$data);
-    
+        $data = $this->repo->destroy($teacher);
+        return ApiResponseTrait::successResponse("delete teacher success", $data);
     }
 
-    public function toggleActivation( $teacher)
+    public function toggleActivation($teacher)
     {
-        $data= $this->repo->toggleActivation($teacher);
-        return ApiResponseTrait::successResponse("change teacher success" ,$data);
-    
+        $data = $this->repo->toggleActivation($teacher);
+        return ApiResponseTrait::successResponse("change teacher success", $data);
     }
-    
-    public function login(array $credentials)
-    {
-      
-        if (Auth::guard('web')->attempt($credentials)) {
-           
-            $teacher= Auth::guard('web')->user();
-            $teacher['token'] = $teacher->createToken('my-app-token')->plainTextToken;
-return     $teacher;
-        }
-        return null;
-    }
+
+    // public function login(array $credentials)
+    // {
+
+    //     if (Auth::guard('web')->attempt($credentials)) {
+
+    //         $teacher = Auth::guard('web')->user();
+    //         $teacher['token'] = $teacher->createToken('my-app-token')->plainTextToken;
+    //         return     $teacher;
+    //     }
+    //     return null;
+    // }
 }

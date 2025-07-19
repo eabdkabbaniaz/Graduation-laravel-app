@@ -122,19 +122,19 @@ class TeacherController extends Controller
 
     }
     
-    public function login(  Request $request)
-    {
+    // public function login(  Request $request)
+    // {
         
-        try {
-            $teacher = $this->service->login($request->all());
-            if (!$teacher) {
-                return ApiResponseTrait::errorResponse( 'Invalid credentials', 401);
-            }
-               return ApiResponseTrait::successResponse("succ",$teacher );
-           } catch (\Throwable $e) {
-               return ApiResponseTrait::errorResponse($e->getMessage());
-           } 
+    //     try {
+    //         $teacher = $this->service->login($request->all());
+    //         if (!$teacher) {
+    //             return ApiResponseTrait::errorResponse( 'Invalid credentials', 401);
+    //         }
+    //            return ApiResponseTrait::successResponse("succ",$teacher );
+    //        } catch (\Throwable $e) {
+    //            return ApiResponseTrait::errorResponse($e->getMessage());
+    //        } 
      
-    }
+    // }
 
 }

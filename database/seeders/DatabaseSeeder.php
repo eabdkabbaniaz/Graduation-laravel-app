@@ -3,7 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,15 +21,31 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+      
         $this->call([
-         RolePermissionSeeder::class
+            RolePermissionSeeder::class
         ]);
-       
-            $this->call([
-                StudentSeeder::class,
-            ]);
-            $this->call([
-               SettingsTableSeeder::class,
-            ]);
+
+        $this->call([
+            StudentSeeder::class,
+        ]);
+        $this->call([
+            SettingsTableSeeder::class,
+        ]);
+          $user1 = User::create([
+            'name' => 'Manager One',
+            'email' => 'manager1@example.com',
+            'password' => Hash::make('11111111'),
+        ]);
+
+        $user1->assignRole('manger');
+
+        $user2 = User::create([
+            'name' => 'Manager Two',
+            'email' => 'manager2@example.com',
+            'password' => Hash::make('11111111'),
+        ]);
+
+        $user2->assignRole('manger');
     }
 }

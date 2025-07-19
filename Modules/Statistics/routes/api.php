@@ -18,14 +18,9 @@ use Modules\Statistics\App\Http\Controllers\StudentStatisticsController;
 */
 
 Route::middleware(['auth:sanctum'])->group(function () {
-<<<<<<< HEAD
     Route::group(['middleware' => ['role:student']], function () {
         Route::get('Statistics/{semester_id}', [StudentStatisticsController::class, 'Statistics']);
         Route::get('Marks', [StudentStatisticsController::class, 'Marks']);
     });
-=======
-Route::get('Statistics', [StudentStatisticsController::class,'Statistics']);
-Route::get('Marks', [StudentStatisticsController::class,'Marks']);
 
->>>>>>> 1a0b79efc53432b9acd827fc0e0eb424eb8e744a
 });

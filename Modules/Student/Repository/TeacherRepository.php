@@ -10,7 +10,6 @@ class TeacherRepository implements UserRepositoryInterface
 
     public function index()
     {
-        //  User::all();
         return   User::role('teacher')->with('teacher')->get();
     }
     public function create($message)
@@ -21,7 +20,7 @@ class TeacherRepository implements UserRepositoryInterface
             'is_active' => 1
 
         ]);
-        $user->assignRole('teacher');
+        $user->assignRole($message['ROLE']);
         $user['is_active'] = $teacher->is_active;
         return $user;
     }

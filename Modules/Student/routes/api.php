@@ -40,6 +40,7 @@ Route::get('index', [ReportController::class, 'index']);
 Route::group(['prefix'=>'Auth'],function(){
 Route::post('ChangePassword', [AuthController::class, 'ChangePassword'])->middleware('auth:sanctum');
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/profile', [AuthController::class, 'profile'])->middleware('auth:sanctum');
 });
 
 Route::group(['prefix'=>'studentAdmin','middleware' => ['auth:sanctum','role:superVisorTeacher']],function(){
@@ -57,7 +58,7 @@ Route::group(['prefix' => 'Category'],function(){
     Route::get('/show/{id}', [CategoryController::class, 'show']);
 });
 
-Route::group(['prefix'=>'teacher','middleware' => ['auth:sanctum','role:superVisorTeacher']],function(){
+Route::group(['prefix'=>'teacher','middleware' => ['auth:sanctum','role:manger']],function(){
     Route::get('/index', [TeacherController::class, 'index']);
     Route::get('/toggleActivation/{id}', [TeacherController::class, 'toggleActivation']);
     Route::delete('/destroy/{id}', [TeacherController::class, 'destroy']);

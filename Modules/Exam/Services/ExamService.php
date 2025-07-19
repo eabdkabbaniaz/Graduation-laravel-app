@@ -98,7 +98,7 @@ class ExamService
             $data['exam_id']=$request->exam_id;
             $users= $this->examRepo->findUserExam($data);
             foreach($request->ans as $an){
-                $question =ExamQuestion::find($an['id']);
+                $question =ExamQuestion::where('question_id',$an['id'])->first();
                 $question->answer_id =$an['answer_id'];
                 $question->save();
             }

@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RolePermissionSeeder::class
         ]);
+<<<<<<< HEAD
 
         $this->call([
             StudentSeeder::class,
@@ -47,5 +48,17 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $user2->assignRole('manger');
+=======
+       
+            $this->call([
+                StudentSeeder::class,
+            ]);
+            $this->call([
+               SemesterSeeder::class,
+            ]);
+            $this->call([
+               SettingsTableSeeder::class,
+            ]);
+>>>>>>> 1094675df6dce2c42ecdbf32af1132bdd6476951
     }
 }

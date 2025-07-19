@@ -79,6 +79,8 @@ Route::group(['middleware' => ['auth:sanctum', 'role:student']], function () {
         Route::get('/AllSemester', [SessionController::class, 'AllSemester']);
         Route::get('/show/{id}', [SessionController::class, 'show']);
     });
+    });
+
     Route::group(['prefix' => 'sessionQuestion', 'middleware' => ['auth:sanctum', 'role:superVisorTeacher']], function () {
         Route::post('/store', [SessionQuestionsController::class, 'store']);
 // >>>>>>> 0d3720e9e0aea73efdc4c8786757f33703908a2b
@@ -96,4 +98,4 @@ Route::group(['prefix' => 'semester', 'middleware' => ['auth:sanctum', 'role:sup
     Route::put('/update/{id}', [SemesterController::class, 'update']);
     Route::delete('/destroy/{id}', [SemesterController::class, 'destroy']);
 });
-// });
+});

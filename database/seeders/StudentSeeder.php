@@ -28,7 +28,7 @@ class StudentSeeder extends Seeder
         for ($i = 1; $i <= 100; $i++) {
             $user = User::create([
                 'name' => "طالب  $i$j",
-                'email' => "123456$i$j",
+                'email' => "طالب$i$j",
                 'password' => Hash::make('password'),
             ]);
 
@@ -39,21 +39,21 @@ class StudentSeeder extends Seeder
             $user->assignRole('student');
         }}
 
-           // Create Semesters
-        $semester1 = Semester::create(['name' => 'الفصل الأول']);
-        $semester2 = Semester::create(['name' => 'الفصل الثاني']);
+        //    // Create Semesters
+        // $semester1 = Semester::create(['name' => 'الفصل الأول']);
+        // $semester2 = Semester::create(['name' => 'الفصل الثاني']);
 
-        // Create Experiences
-        $intestine = Experience::create(['name' => 'تجربة المعي']);
-        $frogHeart = Experience::create(['name' => 'تجربة قلب ضفدع']);
+        // // Create Experiences
+        // $intestine = Experience::create(['name' => 'تجربة المعي']);
+        // $frogHeart = Experience::create(['name' => 'تجربة قلب ضفدع']);
 
-        // Attach Experiences to Semesters
-        DB::table('experineces_semesters')->insert([
-            ['experience_id' => $intestine->id, 'semester_id' => $semester1->id],
-            ['experience_id' => $frogHeart->id, 'semester_id' => $semester1->id],
-            ['experience_id' => $intestine->id, 'semester_id' => $semester2->id],
-            ['experience_id' => $frogHeart->id, 'semester_id' => $semester2->id],
-        ]);
+        // // Attach Experiences to Semesters
+        // DB::table('experineces_semesters')->insert([
+        //     ['experience_id' => $intestine->id, 'semester_id' => $semester1->id],
+        //     ['experience_id' => $frogHeart->id, 'semester_id' => $semester1->id],
+        //     ['experience_id' => $intestine->id, 'semester_id' => $semester2->id],
+        //     ['experience_id' => $frogHeart->id, 'semester_id' => $semester2->id],
+        // ]);
 
 //         // Create Drugs
 //         $acetylcholine = Drug::create(['name' => 'أستيل كولين']);

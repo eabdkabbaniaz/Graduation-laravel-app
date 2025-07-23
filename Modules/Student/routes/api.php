@@ -33,7 +33,7 @@ Route::group(['prefix'=>'Report',['auth:sanctum','role:superVisorTeacher|student
 Route::post('create', [ReportController::class, 'create']);
 Route::get('show/session_id/{id}', [ReportController::class, 'show']);
 });
-Route::group(['prefix'=>'Report','middleware' => ['auth:sanctum','role:superVisorTeacher']],function(){
+Route::group(['prefix'=>'Report','middleware' => ['auth:sanctum','role:superVisorTeacher|student']],function(){
 Route::get('index', [ReportController::class, 'index']);
 });
 

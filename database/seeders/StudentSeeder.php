@@ -28,7 +28,7 @@ class StudentSeeder extends Seeder
         for ($i = 1; $i <= 100; $i++) {
             $user = User::create([
                 'name' => "طالب  $i$j",
-                'email' => "123456$i$j",
+               'email' => "user{$j}{$i}" . rand(1000, 9999) . "@user.com",
                 'password' => Hash::make('password'),
             ]);
 

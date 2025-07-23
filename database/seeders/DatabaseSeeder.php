@@ -26,12 +26,12 @@ class DatabaseSeeder extends Seeder
             RolePermissionSeeder::class
         ]);
 
-        $this->call([
-            StudentSeeder::class,
-        ]);
-        $this->call([
-            SettingsTableSeeder::class,
-        ]);
+        // $this->call([
+        //     StudentSeeder::class,
+        // ]);
+        // $this->call([
+        //     SettingsTableSeeder::class,
+        // ]);
           $user1 = User::create([
             'name' => 'Manager One',
             'email' => 'manager1@example.com',

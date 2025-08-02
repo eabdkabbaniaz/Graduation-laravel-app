@@ -24,7 +24,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::put('/update/{id}', [QuestionController::class, 'update']);
         Route::delete('/destroy/{id}', [QuestionController::class, 'destroy']);
     });
-    Route::group(['middleware' => ['role:teacher|manger|superVisorTeacher']], function () {
+    Route::group(['prefix' => 'questions','middleware' => ['role:teacher|manger|superVisorTeacher']], function () {
         Route::get('/index', [QuestionController::class, 'index']);
         Route::get('/show/{id}', [QuestionController::class, 'show']);
     });
@@ -34,7 +34,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::delete('/destroy/{id}', [SubjectController::class, 'destroy']);
         Route::post('/store', [SubjectController::class, 'store']);
     });
-    Route::group(['middleware' => ['role:teacher|manger|superVisorTeacher']], function () {
+    Route::group(['prefix' => 'subjects','middleware' => ['role:teacher|manger|superVisorTeacher']], function () {
         Route::get('/index', [SubjectController::class, 'index']);
         Route::get('/show/{id}', [SubjectController::class, 'show']);
     });

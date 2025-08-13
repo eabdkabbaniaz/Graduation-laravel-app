@@ -20,7 +20,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('getCalculationMethods', [GradeController::class, 'getCalculationMethods']);
         Route::post('updateCalculationMethods/{id}', [GradeController::class, 'updateCalculationMethods']);
     });
-    Route::group(['middleware' => ['role:teacher|superVisorTeacher']], function () {
+    Route::group(['prefix' => 'Grades','middleware' => ['role:teacher|superVisorTeacher']], function () {
         Route::get('studentGrades/{userId}', [GradeController::class, 'studentGrades']);
         Route::get('allStudentGrades', [GradeController::class, 'allStudentGrades']);
         Route::get('userDetails/{user_id}', [GradeController::class, 'userDetails']);
@@ -31,7 +31,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('myDetails', [GradeController::class, 'myDetails']);
     });
 
-    Route::group(['middleware' => ['role:superVisorTeacher']], function () {
+    Route::group(['prefix' => 'Grades','middleware' => ['role:superVisorTeacher']], function () {
         Route::post('export', [GradeController::class, 'export']);
     });
 });

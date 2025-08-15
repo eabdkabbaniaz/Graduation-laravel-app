@@ -29,7 +29,7 @@ Route::middleware(['auth:sanctum'])->prefix('v1')->name('api.')->group(function 
 
 
 
-Route::group(['prefix'=>'Report',['auth:sanctum','role:superVisorTeacher|student|teacher']],function(){
+Route::group(['prefix'=>'Report','middleware' =>['auth:sanctum','role:superVisorTeacher|student|teacher']],function(){
 Route::post('create', [ReportController::class, 'create']);
 Route::get('show/session_id/{id}', [ReportController::class, 'show']);
 });

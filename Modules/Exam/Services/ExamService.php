@@ -60,6 +60,8 @@ class ExamService
        
     }
 
+
+
     public function update($id, array $data)
     {  try {
             $exam['data']['teacher_id']=$data['teacher_id'];
@@ -71,6 +73,16 @@ class ExamService
             $exam['data']['time']=$data['time'];
             $exam['subject_id']=$data['subject_id'];
         $result= $this->examRepo->update($id, $exam);
+           return ApiResponseTrait::successResponse("succ",   $result)->original;
+       } catch (\Throwable $e) {
+           return ApiResponseTrait::errorResponse($e->getMessage());
+       }   
+       
+    }
+
+    public function updatestatus($id)
+    {  try {
+        $result= $this->examRepo->updatestatus($id);
            return ApiResponseTrait::successResponse("succ",   $result)->original;
        } catch (\Throwable $e) {
            return ApiResponseTrait::errorResponse($e->getMessage());

@@ -16,6 +16,8 @@ use  Modules\Exam\app\Http\Controllers\SubjectController;
     |
 */
 
+//  Route::get('/updatestatus/{id}', [ExamController::class, 'updatestatus']);
+
 Route::middleware(['auth:sanctum'])->group(function () {
     // Route::get('exam', fn (Request $request) => $request->user())->name('exam');
 
@@ -39,6 +41,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/show/{id}', [SubjectController::class, 'show']);
     });
     Route::group(['prefix' => 'exams', 'middleware' => ['role:superVisorTeacher']], function () {
+        Route::get('/updatestatus/{id}', [ExamController::class, 'updatestatus']);
         Route::post('/store', [ExamController::class, 'store']);
         Route::put('/update/{id}', [ExamController::class, 'update']);
         Route::delete('/destroy/{id}', [ExamController::class, 'destroy']);

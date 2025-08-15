@@ -50,6 +50,15 @@ class ExamController extends Controller
         return response()->json($exam);
     }
 
+    public function updatestatus($id)
+    {
+//    $data =$request->validated();
+        // $data['teacher_id'] = auth()->id();
+
+        $exam = $this->examService->updatestatus($id);
+        return response()->json($exam);
+    }
+
     public function destroy($id)
     {
 

@@ -31,6 +31,14 @@ class ExamRepository
         return $exam;
     }
 
+    public function updatestatus($id)
+    {
+        $exam = $this->find($id);
+          $exam->status =!$exam->status;
+        $exam->save();
+        return $exam;
+    }
+
     public function update($id, array $data)
     {
         $exam = $this->find($id);

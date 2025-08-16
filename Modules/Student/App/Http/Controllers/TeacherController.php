@@ -1,6 +1,7 @@
 <?php
 
 namespace Modules\Student\App\Http\Controllers;
+use App\Models\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -122,6 +123,21 @@ class TeacherController extends Controller
 
     }
     
+       public function updateRole(Request $request ,$id)
+    {
+        // return $request->role;
+
+        $user = User::findOrFail($id);
+
+        // إزالة كل الأدوار السابقة وإعطاؤه الدور الجديد
+        $user->syncRoles([$request->role]);
+
+        return response()->json([
+            'message' => 'تم تحديث الدور بنجاح',
+            'user' => $user->only(['id','name','email']),
+            'roles' => $user->getRoleNames()
+        ], 200);
+    }
     // public function login(  Request $request)
     // {
         

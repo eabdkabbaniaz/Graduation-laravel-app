@@ -1,6 +1,7 @@
 <?php
 
 namespace Modules\Student\Repository;
+use App\Enum\Roles;
 
 use App\Models\User;
 use Modules\Student\App\Models\Teacher;
@@ -10,7 +11,7 @@ class TeacherRepository implements UserRepositoryInterface
 
     public function index()
     {
-        return   User::role('teacher')->with('teacher')->get();
+        return   User::role(['teacher','superVisorTeacher'])->with(['teacher','roles'])->get();
     }
     public function create($message)
     {

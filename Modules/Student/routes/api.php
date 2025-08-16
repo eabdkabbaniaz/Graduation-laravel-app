@@ -59,11 +59,13 @@ Route::group(['prefix' => 'Category'],function(){
 });
 
 Route::group(['prefix'=>'teacher','middleware' => ['auth:sanctum','role:manger']],function(){
-    Route::get('/index', [TeacherController::class, 'index']);
     Route::get('/toggleActivation/{id}', [TeacherController::class, 'toggleActivation']);
+    Route::get('/index', [TeacherController::class, 'index']);
     Route::delete('/destroy/{id}', [TeacherController::class, 'destroy']);
     Route::patch('update/{id}', [TeacherController::class, 'edit']);
     Route::post('create', [TeacherController::class, 'create']);
     Route::post('login', [TeacherController::class, 'login']);
+Route::put('/role/{id}', [TeacherController::class, 'updateRole']);
+
 });
 
